@@ -16,7 +16,7 @@ public class MyResourceServerConfigurerAdapter extends ResourceServerConfigurerA
                 .antMatchers("/demo/**", "/swagger-ui.html","/doc.html","/webjars/**","/favicon.ico","/v2/**","/swagger-resources/**")
                 .permitAll()
                 //以上的url不需要token，以下为需要token验证，或者是需要token+角色权限的url
-                .antMatchers("/users/**")
+                .antMatchers("/users/testAuth")
                 .hasRole("ADMIN")
                 .anyRequest()
                 .authenticated();
