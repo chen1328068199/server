@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-bp1f3g3w7ongo10d35o.mysql.rds.aliyuncs.com:3306/testdb
+    password: zyj@123456
+    username: zhongyejun
+  main:
+    allow-bean-definition-overriding: true
+
+swagger:
+  is:
+    enable: true
+  auth:
+    server: http://localhost:8080/oauth/token?username=test&password=passwd&scope=all&grant_type=password
+  service:
+    name:
+
