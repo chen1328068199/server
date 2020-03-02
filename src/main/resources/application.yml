@@ -15,3 +15,14 @@ swagger:
   service:
     name:
 
+api:
+  boot:
+    oauth:
+      jwt:
+        enable: true
+      away: jdbc
+    security:
+      away: jdbc
+      enable-default-store-delegate: false
+      auth-prefix: /api/**,/users/**,/demo/**
+      ignoring-urls:

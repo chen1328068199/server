@@ -1,51 +1,37 @@
-package com.stan.server.security;
+package com.stan.server.granter;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.stan.server.model.SysUser;
 import com.stan.server.mapper.UserMapper;
 import com.stan.server.model.vo.UserVO;
-import lombok.extern.slf4j.Slf4j;
+import org.minbox.framework.api.boot.plugin.oauth.exception.ApiBootTokenException;
+import org.minbox.framework.api.boot.plugin.oauth.grant.ApiBootOauthTokenGranter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Map;
 
 /**
- * 废弃
+ * 新增GrantType，用于根据openId获取token
  */
-//@Component
-//@Slf4j
-public class MyUserDetailService implements UserDetailsService {
-
-//    @Autowired
+@Component
+public class WeChatGrantType implements ApiBootOauthTokenGranter {
+    @Autowired
     private UserMapper userMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserVO userVO = userMapper.getUserInfoByName(userName);
-        if (userVO == null || ObjectUtils.isEmpty(userVO)) {
-            throw new UsernameNotFoundException("该用户不存在！");
-        }
-        //角色
-        Collection<SimpleGrantedAuthority> collection = new HashSet<SimpleGrantedAuthority>();
-        String[] roles = userVO.getRoles().split(",");
-        for (int i = 0; i < roles.length; i++) {
-            collection.add(new SimpleGrantedAuthority(roles[i]));
-        }
-        return new User(userVO.getUserName(), userVO.getUserPassword(), collection);
+    public String grantType() {
+        return "wechat";
     }
 
-    public UserDetails loadUserByOpenId(String openId, String password) {
+    @Override
+    public UserDetails loadByParameter(Map<String, String> map) throws ApiBootTokenException {
+        String openId = map.get("open_id");
         if (StringUtils.isEmpty(openId)) {
             throw new InvalidGrantException("无效的openId");
         }

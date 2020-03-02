@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,8 +44,8 @@ public class DemoController {
 
     @GetMapping("user")
     @ApiOperation("用户")
-    public ResultVO auth() {
-        return ResultVOUtil.success(SecurityAuthUtil.getAuthenticationUser());
+    public ResultVO auth(Authentication authentication) {
+        return ResultVOUtil.success(authentication);
     }
 
     @GetMapping("gettest")

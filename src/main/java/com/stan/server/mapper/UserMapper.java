@@ -11,4 +11,6 @@ public interface UserMapper extends BaseMapper<SysUser> {
     UserVO getUserInfoById(Integer id);
 
     UserVO getUserInfoByName(String userName);
+
+    UserVO getUserInfoByOpenId(String openId);
 }

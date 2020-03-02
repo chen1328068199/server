@@ -18,4 +18,6 @@ public class SysUser {
     private String userName;
     @ApiModelProperty(value = "用户密码")
     private String userPassword;
+    @ApiModelProperty(value = "openId")
+    private String openId;
 }

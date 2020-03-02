@@ -11,6 +11,8 @@ public class UserVO {
     private String userName;
     @ApiModelProperty(value = "密码")
     private String userPassword;
+    @ApiModelProperty(value = "openId")
+    private String openId;
     @ApiModelProperty(value = "菜单权限")
     private String modules;
     @ApiModelProperty(value = "角色")

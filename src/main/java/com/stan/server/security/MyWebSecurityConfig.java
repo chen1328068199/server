@@ -12,53 +12,56 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
-@EnableWebSecurity
+/**
+ * 废弃
+ */
+//@Configuration
+//@EnableWebSecurity
 //会拦截注解了@PreAuthrize注解的配置.
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+//@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private MyUserDetailService userDetailsService;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                //开启默认登录页面
-                .formLogin()
-                //默认登录页面
-                .loginPage("/login")
-                //默认登录成功跳转页面
-                .defaultSuccessUrl("/chat")
-                .permitAll()
-                .and()
-                //设置注销
-                .logout()
-                .permitAll();
-    }
-
-    /**
-     * 需要配置这个支持password模式 support password grant type
-     *
-     * @return
-     * @throws Exception
-     */
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//
+//    @Autowired
+//    private MyUserDetailService userDetailsService;
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                //开启默认登录页面
+//                .formLogin()
+//                //默认登录页面
+//                .loginPage("/login")
+//                //默认登录成功跳转页面
+//                .defaultSuccessUrl("/chat")
+//                .permitAll()
+//                .and()
+//                //设置注销
+//                .logout()
+//                .permitAll();
+//    }
+//
+//    /**
+//     * 需要配置这个支持password模式 support password grant type
+//     *
+//     * @return
+//     * @throws Exception
+//     */
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 }

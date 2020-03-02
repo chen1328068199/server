@@ -9,6 +9,7 @@
         SELECT
 	    su.id,
 	    su.user_name,
+	    su.open_id,
 	    GROUP_CONCAT(sr.modules SEPARATOR '') AS modules,
 	    GROUP_CONCAT(sr.role) AS roles
         FROM
@@ -25,6 +26,7 @@
 	    su.id,
 	    su.user_name,
 	    su.user_password,
+	    su.open_id,
 	    GROUP_CONCAT(sr.modules SEPARATOR '') AS modules,
 	    GROUP_CONCAT(sr.role) AS roles
         FROM
@@ -33,6 +35,23 @@
 	    sys_role AS sr
         WHERE
 	    su.user_name = #{userName}
+	    AND su.id = rur.user_id
+	    AND sr.id = rur.role_id
+	</select>
+	<select id="getUserInfoByOpenId" resultType="com.stan.server.model.vo.UserVO">
+		SELECT
+	    su.id,
+	    su.user_name,
+	    su.user_password,
+	    su.open_id,
+	    GROUP_CONCAT(sr.modules SEPARATOR '') AS modules,
+	    GROUP_CONCAT(sr.role) AS roles
+        FROM
+	    sys_user AS su,
+	    r_user_role AS rur,
+	    sys_role AS sr
+        WHERE
+	    su.open_id = #{openId}
 	    AND su.id = rur.user_id
 	    AND sr.id = rur.role_id
 	</select>

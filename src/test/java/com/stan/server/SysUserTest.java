@@ -23,7 +23,7 @@ public class SysUserTest {
     @Test
     public void test() {
         SysUser sysUser = new SysUser();
-        sysUser.setUserName("test2");
+        sysUser.setUserName("test3");
         sysUser.setUserPassword(new BCryptPasswordEncoder().encode("passwd"));
         userMapper.insert(sysUser);
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
