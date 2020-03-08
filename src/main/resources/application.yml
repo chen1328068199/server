@@ -15,6 +15,10 @@ swagger:
   service:
     name:
 
+wx:
+  app-id: wxc0caeb551cbd8e2f
+  secret: 93a5ba0e7dff6908835c6f3ea4b1a3b5
+
 api:
   boot:
     oauth:

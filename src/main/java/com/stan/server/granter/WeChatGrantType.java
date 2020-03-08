@@ -44,6 +44,6 @@ public class WeChatGrantType implements ApiBootOauthTokenGranter {
         for (int i = 0; i < roles.length; i++) {
             collection.add(new SimpleGrantedAuthority(roles[i]));
         }
-        return new User(userVO.getUserName(), "", collection);
+        return new User(userVO.getOpenId(), "", collection);
     }
 }
