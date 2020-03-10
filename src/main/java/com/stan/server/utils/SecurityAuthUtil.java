@@ -3,8 +3,6 @@ package com.stan.server.utils;
 import com.stan.server.model.MyUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 
 public class SecurityAuthUtil {
@@ -17,6 +15,16 @@ public class SecurityAuthUtil {
 		Authentication authenObj = SecurityContextHolder.getContext().getAuthentication();
 		MyUserDetails authenUser = (MyUserDetails) authenObj.getPrincipal();
 		return authenUser.getUsername();
+	}
+
+	/**
+	 * 直接获取当前用户ID
+	 * @return
+	 */
+	public static int getLoginId() {
+		Authentication authenObj = SecurityContextHolder.getContext().getAuthentication();
+		MyUserDetails authenUser = (MyUserDetails) authenObj.getPrincipal();
+		return authenUser.getUserId();
 	}
 	
 	/**
