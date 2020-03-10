@@ -1,6 +1,7 @@
 package com.stan.server.security;
 
 import com.stan.server.mapper.UserMapper;
+import com.stan.server.model.MyUserDetails;
 import com.stan.server.model.vo.UserVO;
 import org.minbox.framework.api.boot.plugin.security.delegate.ApiBootStoreDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,6 @@ public class UserStoreDelegate implements ApiBootStoreDelegate {
         for (int i = 0; i < roles.length; i++) {
             collection.add(new SimpleGrantedAuthority(roles[i]));
         }
-        return new User(userVO.getUserName(), userVO.getUserPassword(), collection);
+        return new MyUserDetails(userVO.getId(), userVO.getUserName(), userVO.getUserPassword(), collection);
     }
 }

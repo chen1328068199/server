@@ -1,6 +1,7 @@
 package com.stan.server.granter;
 
 import com.stan.server.mapper.UserMapper;
+import com.stan.server.model.MyUserDetails;
 import com.stan.server.model.vo.UserVO;
 import org.minbox.framework.api.boot.plugin.oauth.exception.ApiBootTokenException;
 import org.minbox.framework.api.boot.plugin.oauth.grant.ApiBootOauthTokenGranter;
@@ -44,6 +45,6 @@ public class WeChatGrantType implements ApiBootOauthTokenGranter {
         for (int i = 0; i < roles.length; i++) {
             collection.add(new SimpleGrantedAuthority(roles[i]));
         }
-        return new User(userVO.getOpenId(), "", collection);
+        return new MyUserDetails(userVO.getId(), userVO.getOpenId(), "", collection);
     }
 }

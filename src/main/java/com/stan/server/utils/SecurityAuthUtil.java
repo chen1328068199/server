@@ -1,5 +1,6 @@
 package com.stan.server.utils;
 
+import com.stan.server.model.MyUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -14,7 +15,7 @@ public class SecurityAuthUtil {
 	 */
 	public static String getLoginName() {
 		Authentication authenObj = SecurityContextHolder.getContext().getAuthentication();
-		User authenUser = (User)authenObj.getPrincipal();
+		MyUserDetails authenUser = (MyUserDetails) authenObj.getPrincipal();
 		return authenUser.getUsername();
 	}
 	
@@ -22,9 +23,9 @@ public class SecurityAuthUtil {
 	 * 直接获取当前用户的认证用户信息
 	 * @return
 	 */
-	public static User getAuthenticationUser() {
+	public static MyUserDetails getAuthenticationUser() {
 		Authentication authenObj = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) authenObj.getPrincipal();
+		MyUserDetails user = (MyUserDetails) authenObj.getPrincipal();
 		return user;
 	}
 

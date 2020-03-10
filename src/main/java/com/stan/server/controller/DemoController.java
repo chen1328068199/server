@@ -45,7 +45,7 @@ public class DemoController {
     @GetMapping("user")
     @ApiOperation("用户")
     public ResultVO auth(Authentication authentication) {
-        return ResultVOUtil.success(authentication);
+        return ResultVOUtil.success(SecurityAuthUtil.getAuthenticationUser());
     }
 
     @GetMapping("gettest")
