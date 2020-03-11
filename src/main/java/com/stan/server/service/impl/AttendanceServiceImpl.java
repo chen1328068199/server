@@ -14,14 +14,14 @@ import org.springframework.stereotype.Service;
 public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
-    @Cacheable(key = "attendance_key")
-    public String getAttendanceKey() {
+    @Cacheable(key = "QRCode_attendance_key")
+    public String getQRCodeAttendanceKey() {
         return null;
     }
 
     @Override
-    @CachePut(key = "attendance_key")
-    public String updateAttendanceKey(Integer length) {
+    @CachePut(key = "QRCode_attendance_key")
+    public String updateQRCodeAttendanceKey(Integer length) {
         return RandomStringUtils.randomAlphabetic(13);
     }
 }
