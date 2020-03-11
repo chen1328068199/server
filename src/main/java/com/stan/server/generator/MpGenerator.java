@@ -47,10 +47,10 @@ public class MpGenerator {
         GlobalConfig gc = new GlobalConfig();
         gc.setOutputDir(projectPath + outputDir);
         gc.setFileOverride(true);
-        gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
+        gc.setActiveRecord(false);// 不需要ActiveRecord特性的请改为false
         gc.setEnableCache(false);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
-        gc.setBaseColumnList(true);// XML columList
+        gc.setBaseColumnList(true);// XML columnList
         //gc.setKotlin(true);//是否生成 kotlin 代码
         gc.setAuthor(author);
         //实体属性 Swagger2 注解
@@ -86,8 +86,10 @@ public class MpGenerator {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-        //strategy.setTablePrefix(new String[] { "tlog_", "tsys_" });// 此处可以修改为您的表前缀
+        //strategy.setTablePrefix(new String[] { "tlog_", "tsys_" });// 此处可以修改为您
+        // 的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);// 字段名生成策略
         strategy.setInclude(tables); // 需要生成的表
         // 使用lombok
         strategy.setEntityLombokModel(true);
@@ -98,13 +100,15 @@ public class MpGenerator {
         // 自定义实体，公共字段
         // strategy.setSuperEntityColumns(new String[] { "test_id", "age" });
         // 自定义 mapper 父类
-         strategy.setSuperMapperClass("com.baomidou.mybatisplus.core.mapper.BaseMapper");
+        strategy.setSuperMapperClass("com.baomidou.mybatisplus.core.mapper.BaseMapper");
         // 自定义 service 父类
-         strategy.setSuperServiceClass("com.baomidou.mybatisplus.extension.service.IService");
+        strategy.setSuperServiceClass("com.baomidou.mybatisplus.extension.service.IService");
         // 自定义 service 实现类父类
-         strategy.setSuperServiceImplClass("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
+        strategy.setSuperServiceImplClass("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
         // 自定义 controller 父类
         // strategy.setSuperControllerClass("com.baomidou.demo.TestController");
+        // 【实体】是否生成字段注解（默认 false）
+        strategy.setEntityTableFieldAnnotationEnable(true);
         // 【实体】是否生成字段常量（默认 false）
         // public static final String ID = "test_id";
         strategy.setEntityColumnConstant(true);
@@ -160,7 +164,7 @@ public class MpGenerator {
         // 自定义模板配置，可以 copy 源码 mybatis-plus/src/main/resources/templates 下面内容修改，
         // 放置自己项目的 src/main/resources/templates 目录下, 默认名称一下可以不配置，也可以自定义模板名称
         TemplateConfig tc = new TemplateConfig();
-        tc.setController("/template/controller.java.vm");
+//        tc.setController("/template/controller.java.vm");
         tc.setService("/template/service.java.vm");
         tc.setServiceImpl("/template/serviceImpl.java.vm");
         tc.setEntity("/template/entity.java.vm");

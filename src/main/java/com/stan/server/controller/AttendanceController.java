@@ -27,14 +27,18 @@ public class AttendanceController {
 
     @Autowired
     private AttendanceService attendanceService;
+    @Autowired
+//    private AttendanceLogService attendanceLogService;
 
-
+    @PostMapping
     @ApiOperation("发起考勤")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "longitude", value = "经度", required = true, dataType = "String"),
             @ApiImplicitParam(name = "latitude", value = "纬度", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "distance", value = "考勤有效距离", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "attendanceWay", value = "考勤方式，未确定，3-扫码考勤", required = true, dataType = "Integer"),
     })
-    public void startAttendance(@RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude, @RequestParam("latitude") int distance) {
+    public void startAttendance(@RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude, @RequestParam("distance") int distance, @RequestParam("attendanceWay") int way) {
 
     }
 

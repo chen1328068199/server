@@ -1,7 +1,9 @@
 package com.stan.server.bean;
 
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,35 +20,44 @@ import lombok.experimental.Accessors;
  * @since 2020-03-11
  */
 @Data
-    @EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@TableName("attendance_log")
 @ApiModel(value="AttendanceLog对象", description="用户考勤记录表")
-public class AttendanceLog extends Model<AttendanceLog> {
+public class AttendanceLog implements Serializable {
 
 private static final long serialVersionUID=1L;
 
-        @ApiModelProperty(value = "主键")
-                                            private Integer id;
+    @ApiModelProperty(value = "主键")
+                        @TableId("id")
+                            private Integer id;
 
-        @ApiModelProperty(value = "考勤发起人")
+    @ApiModelProperty(value = "考勤发起人")
+    @TableField("user_id")
                 private Integer userId;
 
-        @ApiModelProperty(value = "考勤经度")
+    @ApiModelProperty(value = "考勤经度")
+    @TableField("lat")
                 private Double lat;
 
-        @ApiModelProperty(value = "考勤纬度")
+    @ApiModelProperty(value = "考勤纬度")
+    @TableField("lng")
                 private Double lng;
 
-        @ApiModelProperty(value = "考勤有效距离")
+    @ApiModelProperty(value = "考勤有效距离")
+    @TableField("distance")
                 private Integer distance;
 
-        @ApiModelProperty(value = "考勤开始时间")
+    @ApiModelProperty(value = "考勤开始时间")
+    @TableField("start_time")
                 private LocalDateTime startTime;
 
-        @ApiModelProperty(value = "考勤结束时间")
+    @ApiModelProperty(value = "考勤结束时间")
+    @TableField("end_time")
                 private LocalDateTime endTime;
 
-        @ApiModelProperty(value = "考勤方式")
+    @ApiModelProperty(value = "考勤方式")
+    @TableField("way")
                 private String way;
 
 
@@ -66,9 +77,4 @@ private static final long serialVersionUID=1L;
 
     public static final String WAY = "way";
 
-@Override
-protected Serializable pkVal() {
-            return this.id;
-        }
-
-        }
+}
