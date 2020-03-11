@@ -1,6 +1,6 @@
 package com.stan.server.service.impl;
 
-import com.stan.server.model.AttendanceWay;
+import com.stan.server.bean.AttendanceWay;
 import com.stan.server.mapper.AttendanceWayMapper;
 import com.stan.server.service.AttendanceWayService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

@@ -3,7 +3,7 @@
 <mapper namespace="com.stan.server.mapper.AttendanceWayMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.stan.server.model.AttendanceWay">
+    <resultMap id="BaseResultMap" type="com.stan.server.bean.AttendanceWay">
         <id column="id" property="id" />
         <result column="way" property="way" />
     </resultMap>

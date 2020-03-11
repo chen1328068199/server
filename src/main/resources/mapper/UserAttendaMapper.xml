@@ -3,7 +3,7 @@
 <mapper namespace="com.stan.server.mapper.UserAttendanceLogMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.stan.server.model.UserAttendanceLog">
+    <resultMap id="BaseResultMap" type="com.stan.server.bean.UserAttendanceLog">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="location_lat" property="locationLat" />

@@ -1,6 +1,6 @@
 package com.stan.server.mapper;
  
-import com.stan.server.model.UserAttendanceLog;
+import com.stan.server.bean.UserAttendanceLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  
 /**

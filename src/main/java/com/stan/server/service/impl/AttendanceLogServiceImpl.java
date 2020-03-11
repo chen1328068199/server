@@ -1,6 +1,6 @@
 package com.stan.server.service.impl;
 
-import com.stan.server.model.AttendanceLog;
+import com.stan.server.bean.AttendanceLog;
 import com.stan.server.mapper.AttendanceLogMapper;
 import com.stan.server.service.AttendanceLogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

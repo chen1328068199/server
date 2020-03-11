@@ -1,4 +1,4 @@
-package com.stan.server.model;
+package com.stan.server.bean;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;

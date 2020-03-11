@@ -1,6 +1,6 @@
 package com.stan.server.service;
 
-import com.stan.server.model.AttendanceLog;
+import com.stan.server.bean.AttendanceLog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
