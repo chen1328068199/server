@@ -23,11 +23,11 @@ import lombok.experimental.Accessors;
  */
 #if(${entityLombokModel})
 @Data
-    #if(${superEntityClass})
-    @EqualsAndHashCode(callSuper = true)
-    #else
-    @EqualsAndHashCode(callSuper = false)
-    #end
+#if(${superEntityClass})
+@EqualsAndHashCode(callSuper = true)
+#else
+@EqualsAndHashCode(callSuper = false)
+#end
 @Accessors(chain = true)
 #end
 #if(${table.convert})
@@ -45,40 +45,40 @@ public class ${entity} implements Serializable {
 #end
 
 #if(${entitySerialVersionUID})
-private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 #end
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
 
-    #if(${field.keyFlag})
-        #set($keyPropertyName=${field.propertyName})
+#if(${field.keyFlag})
+#set($keyPropertyName=${field.propertyName})
+#end
+#if("$!field.comment" != "")
+    #if(${swagger2})
+    @ApiModelProperty(value = "${field.comment}")
+    #else
+    /**
+     * ${field.comment}
+     */
     #end
-    #if("$!field.comment" != "")
-        #if(${swagger2})
-        @ApiModelProperty(value = "${field.comment}")
-        #else
-        /**
-         * ${field.comment}
-         */
-        #end
-    #end
+#end
     #if(${field.keyFlag})
         ## 主键
         #if(${field.keyIdentityFlag})
-        @TableId(value = "${field.name}", type = IdType.AUTO)
+    @TableId(value = "${field.name}", type = IdType.AUTO)
         #elseif(!$null.isNull(${idType}) && "$!idType" != "")
-        @TableId(value = "${field.name}", type = IdType.${idType})
+    @TableId(value = "${field.name}", type = IdType.${idType})
         #elseif(${field.convert})
-        @TableId("${field.name}")
+    @TableId("${field.name}")
         #end
         ## 普通字段
     #elseif(${field.fill})
-        ## -----   存在字段填充设置   -----
-        #if(${field.convert})
-        @TableField(value = "${field.name}", fill = FieldFill.${field.fill})
-        #else
-        @TableField(fill = FieldFill.${field.fill})
-        #end
+    ## -----   存在字段填充设置   -----
+    #if(${field.convert})
+    @TableField(value = "${field.name}", fill = FieldFill.${field.fill})
+    #else
+    @TableField(fill = FieldFill.${field.fill})
+    #end
     #elseif(${field.convert})
     @TableField("${field.name}")
     #end
@@ -127,29 +127,29 @@ private ${field.propertyType} ${field.propertyName};
 
     #end
 #end
-#if(${activeRecord})
-@Override
-protected Serializable pkVal() {
-    #if(${keyPropertyName})
-            return this.${keyPropertyName};
-    #else
-            return null;
-    #end
-        }
-
-#end
-#if(!${entityLombokModel})
-@Override
-public String toString() {
-        return "${entity}{" +
-    #foreach($field in ${table.fields})
-        #if($!{foreach.index}==0)
-                "${field.propertyName}=" + ${field.propertyName} +
+    #if(${activeRecord})
+    @Override
+    protected Serializable pkVal() {
+        #if(${keyPropertyName})
+                return this.${keyPropertyName};
         #else
-                ", ${field.propertyName}=" + ${field.propertyName} +
+                return null;
         #end
+    }
+
     #end
-        "}";
-        }
-#end
-        }
+    #if(!${entityLombokModel})
+    @Override
+    public String toString() {
+            return "${entity}{" +
+        #foreach($field in ${table.fields})
+            #if($!{foreach.index}==0)
+                    "${field.propertyName}=" + ${field.propertyName} +
+            #else
+                    ", ${field.propertyName}=" + ${field.propertyName} +
+            #end
+        #end
+            "}";
+    }
+    #end
+}

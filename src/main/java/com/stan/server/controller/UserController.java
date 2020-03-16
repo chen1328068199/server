@@ -1,6 +1,5 @@
 package com.stan.server.controller;
 
-import com.stan.server.model.vo.UserVO;
 import com.stan.server.service.UserService;
 import com.stan.server.utils.ResultVO;
 import com.stan.server.utils.ResultVOUtil;
@@ -22,13 +21,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "testAuth")
-    public ResultVO<UserVO> testAuth() {
+    public ResultVO<String> testAuth() {
         return ResultVOUtil.success("测试角色权限");
     }
 
     @GetMapping(value = "testAuth2")
     @PreAuthorize(value = "hasRole('ADMIN')")
-    public ResultVO<UserVO> testAuth2() {
+    public ResultVO<String> testAuth2() {
         return ResultVOUtil.success("测试注解角色权限");
     }
 }

@@ -27,27 +27,15 @@ public class AttendanceController {
 
     @Autowired
     private AttendanceService attendanceService;
-    @Autowired
-//    private AttendanceLogService attendanceLogService;
-
-    @PostMapping
-    @ApiOperation("发起考勤")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "longitude", value = "经度", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "latitude", value = "纬度", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "distance", value = "考勤有效距离", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "attendanceWay", value = "考勤方式，未确定，3-扫码考勤", required = true, dataType = "Integer"),
-    })
-    public void startAttendance(@RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude, @RequestParam("distance") int distance, @RequestParam("attendanceWay") int way) {
-
-    }
 
     @GetMapping("QRCode")
     @ApiOperation("获取二维码")
     public void getQRCode(HttpServletResponse resp) {
+        String attendanceCacheKey = "QRCodeKey";
+        String qrCode = attendanceService.updateQRCodeAttendanceKey(attendanceCacheKey, 13);
         // 生成二维码图像流输出到Servlet输出流中。
         try (ServletOutputStream outputStream = resp.getOutputStream()) {
-            byte[] bytes = QRCodeUtils.generateQRCodeImageStream("", 1080, 1080);
+            byte[] bytes = QRCodeUtils.generateQRCodeImageStream(qrCode, 1080, 1080);
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
             BufferedImage image = ImageIO.read(byteArrayInputStream);
 
@@ -69,7 +57,9 @@ public class AttendanceController {
             @ApiImplicitParam(name = "latitude", value = "纬度", required = true, dataType = "String")
     })
     public void qrCodeAttendance(@RequestParam("key") String key, @RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude) {
-        String attendanceKey = attendanceService.getQRCodeAttendanceKey();
+        // TODO 从二维码内容（key）中获得二维码所属考勤
+        String attendanceCacheKey = "QRCodeKey";
+        String attendanceKey = attendanceService.getQRCodeAttendanceKey(attendanceCacheKey);
         if (key.equals(attendanceKey)) {
             // TODO 校验地理位置是否合法
             // TODO 记录用户考勤
