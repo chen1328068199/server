@@ -29,4 +29,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
         return userMapper.getUserInfoByName(userName);
     }
 
+    @Override
+    public UserVO getUserInfoByOpenId(String openId) {
+        return userMapper.getUserInfoByOpenId(openId);
+    }
+
 }

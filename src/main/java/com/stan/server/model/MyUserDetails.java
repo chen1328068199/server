@@ -22,17 +22,17 @@ public class MyUserDetails implements UserDetails, CredentialsContainer {
     private String password;
     private final String username;
     private final Integer userId;
-    private final Set<GrantedAuthority> authorities;
+    private final Set<? extends GrantedAuthority> authorities;
     private final boolean accountNonExpired;
     private final boolean accountNonLocked;
     private final boolean credentialsNonExpired;
     private final boolean enabled;
 
-    public MyUserDetails(Integer userId, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public MyUserDetails(Integer userId, String username, String password, Set<? extends GrantedAuthority> authorities) {
         this(userId, username, password, true, true, true, true, authorities);
     }
 
-    public MyUserDetails(Integer userId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public MyUserDetails(Integer userId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Set<? extends GrantedAuthority> authorities) {
         if (userId != null && username != null && !"".equals(username) && password != null) {
             this.userId = userId;
             this.username = username;
@@ -41,14 +41,15 @@ public class MyUserDetails implements UserDetails, CredentialsContainer {
             this.accountNonExpired = accountNonExpired;
             this.credentialsNonExpired = credentialsNonExpired;
             this.accountNonLocked = accountNonLocked;
-            this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
+//            this.authorities = sortAuthorities(authorities);
+            this.authorities = authorities;
         } else {
             throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
         }
     }
 
-    public Collection<GrantedAuthority> getAuthorities() {
-        return this.authorities;
+    public HashSet<? extends GrantedAuthority> getAuthorities() {
+        return (HashSet<? extends GrantedAuthority>) this.authorities;
     }
 
     public Integer getUserId() {

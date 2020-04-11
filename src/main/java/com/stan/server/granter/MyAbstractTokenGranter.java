@@ -9,9 +9,7 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * 废弃
- */
+@Deprecated
 public abstract class MyAbstractTokenGranter extends AbstractTokenGranter {
 
     protected MyAbstractTokenGranter(AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {

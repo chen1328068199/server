@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stan.server.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stan.server.bean.Role">
+        <id column="id" property="id" />
+        <result column="role" property="role" />
+        <result column="name" property="name" />
+        <result column="describe" property="describe" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, role, `name`, `describe`, `status`
+    </sql>
+
+    <select id="getRolesFromUser" resultType="com.stan.server.bean.Role">
+		SELECT
+	        r.id, role, `name`, `describe`, `status`
+        FROM
+            sys_role AS r LEFT OUTER JOIN r_user_role AS ur
+            ON r.id=ur.role_id
+        WHERE
+	        ur.user_id=#{userId}
+	</select>
+
+    <select id="listRoleIdByRole" resultType="Integer">
+		SELECT
+	        id
+        FROM
+            sys_role
+        WHERE
+	        role IN <foreach collection="roles" item="role" open="(" close=")" separator=",">
+                    #{role}
+            </foreach>
+	</select>
+
+    <select id="listMenuByRoleIds" resultType="com.stan.server.bean.Menu">
+		SELECT
+	        m.id,
+	        m.name,
+	        m.redirect,
+	        m.title,
+	        m.hide_in_menu,
+	        m.component,
+	        m.parent_id,
+	        m.children_id,
+	        m.sort,
+	        m.remark,
+	        m.icon
+        FROM
+            sys_role_menu AS rm INNER JOIN sys_menu AS m ON rm.menu_id=m.id
+        WHERE
+	        role_id IN <foreach collection="roleIds" item="roleId" open="(" close=")" separator=",">
+                    #{roleId}
+            </foreach>
+	</select>
+
+    <insert id="roleAddMenu">
+        <foreach collection="menuIds" item="menuId">
+            INSERT INTO sys_role_menu(role_id, menu_id) VALUES(#{roleId}, #{menuId})
+        </foreach>
+	</insert>
+
+    <insert id="roleAddPermission">
+        <foreach collection="permissionIds" item="permissionId">
+            INSERT INTO sys_role_permission(role_id, permission_id) VALUES(#{roleId}, #{permissionId})
+        </foreach>
+	</insert>
+
+    <delete id="deleteMenusFromRoleId">
+        DELETE FROM sys_role_menu WHERE role_id=#{roleId}
+	</delete>
+
+    <delete id="deletePermissionsFromRoleId">
+        DELETE FROM sys_role_permission WHERE role_id=#{roleId}
+	</delete>
+
+</mapper>

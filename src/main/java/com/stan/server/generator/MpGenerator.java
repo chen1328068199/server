@@ -26,9 +26,9 @@ public class MpGenerator {
         // 文件输出目录,在项目根目录下
         String outputDir = "/src/main/java";
         // 作者
-        String author = "";
+        String author = "Ren";
         // 需要生成的表
-        String[] tables = new String[]{"attendance_log", "attendance_way", "user_attendance_log"};
+        String[] tables = new String[]{"c_department", "c_company"};
         // 包名前缀
         String parent = "com.stan.server";
         // 所在包
@@ -78,9 +78,9 @@ public class MpGenerator {
 //            }
 //        });
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("zhongyejun");
-        dsc.setPassword("zyj@123456");
-        dsc.setUrl("jdbc:mysql://rm-bp1f3g3w7ongo10d35o.mysql.rds.aliyuncs.com:3306/testdb");
+        dsc.setUsername("root");
+        dsc.setPassword("");
+        dsc.setUrl("jdbc:mysql://47.98.44.143:3306/diploma_project");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -179,6 +179,4 @@ public class MpGenerator {
         // 打印注入设置【可无】
 //        System.err.println(mpg.getCfg().getMap().get("abc"));
     }
-
-
 }

@@ -2,11 +2,8 @@ package com.stan.server.controller;
 
 import com.google.zxing.WriterException;
 import com.stan.server.service.AttendanceService;
-import com.stan.server.utils.QRCodeUtils;
-import com.stan.server.utils.SecurityAuthUtil;
+import com.stan.server.utils.*;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,25 +43,6 @@ public class AttendanceController {
 
         } catch (IOException | WriterException e) {
             e.printStackTrace();
-        }
-    }
-
-    @PostMapping("scanQRCode")
-    @ApiOperation("二维码考勤")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "key", value = "二维码内容", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "longitude", value = "经度", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "latitude", value = "纬度", required = true, dataType = "String")
-    })
-    public void qrCodeAttendance(@RequestParam("key") String key, @RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude) {
-        // TODO 从二维码内容（key）中获得二维码所属考勤
-        String attendanceCacheKey = "QRCodeKey";
-        String attendanceKey = attendanceService.getQRCodeAttendanceKey(attendanceCacheKey);
-        if (key.equals(attendanceKey)) {
-            // TODO 校验地理位置是否合法
-            // TODO 记录用户考勤
-            int userId = SecurityAuthUtil.getLoginId();
-
         }
     }
 }

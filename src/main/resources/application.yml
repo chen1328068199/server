@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rm-bp1f3g3w7ongo10d35o.mysql.rds.aliyuncs.com:3306/testdb
-    password: zyj@123456
-    username: zhongyejun
+    url: jdbc:mysql://47.98.44.143:3306/diploma_project
+    username: root
+    password:
   main:
     allow-bean-definition-overriding: true
 
@@ -28,5 +28,20 @@ api:
     security:
       away: jdbc
       enable-default-store-delegate: false
-      auth-prefix: /api/**,/users/**,/demo/**
+#      auth-prefix: /api/**,/users/**,/demo/**,/attendance/**/
+      auth-prefix: /**
       ignoring-urls:
+        - /login
+        - /weChat/**
+
+mybatis:
+  typeAliasesPackage: com.stan.server.bean
+  configuration:
+    ap-underscore-to-camel-case: true
+  mapper-locations: mapper/AttendanceLeaveMapper.xml
+
+hikari:
+  minimum-idle: 3
+  maximum-pool-size: 10
+  max-lifetime: 30000   #不能小于30秒，否则默认回到1800秒
+  connection-test-query: SELECT 1

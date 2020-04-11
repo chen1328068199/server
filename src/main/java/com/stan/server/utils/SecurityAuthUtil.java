@@ -12,9 +12,7 @@ public class SecurityAuthUtil {
 	 * @return
 	 */
 	public static String getLoginName() {
-		Authentication authenObj = SecurityContextHolder.getContext().getAuthentication();
-		MyUserDetails authenUser = (MyUserDetails) authenObj.getPrincipal();
-		return authenUser.getUsername();
+		return getAuthenticationUser().getUsername();
 	}
 
 	/**
@@ -22,9 +20,7 @@ public class SecurityAuthUtil {
 	 * @return
 	 */
 	public static int getLoginId() {
-		Authentication authenObj = SecurityContextHolder.getContext().getAuthentication();
-		MyUserDetails authenUser = (MyUserDetails) authenObj.getPrincipal();
-		return authenUser.getUserId();
+		return getAuthenticationUser().getUserId();
 	}
 	
 	/**
@@ -32,9 +28,8 @@ public class SecurityAuthUtil {
 	 * @return
 	 */
 	public static MyUserDetails getAuthenticationUser() {
-		Authentication authenObj = SecurityContextHolder.getContext().getAuthentication();
-		MyUserDetails user = (MyUserDetails) authenObj.getPrincipal();
-		return user;
+		Authentication authObj = SecurityContextHolder.getContext().getAuthentication();
+		return (MyUserDetails) authObj.getPrincipal();
 	}
 
 }
