@@ -1,9 +1,5 @@
 package com.stan.server.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.stan.server.entity.AttendanceStats;
-import com.stan.server.enums.AttendanceModeEnum;
-import com.stan.server.enums.AttendanceStatusEnum;
 import com.stan.server.model.AttendanceStatsRequestParam;
 import com.stan.server.model.vo.AttendanceRecordStatVO;
 import com.stan.server.model.vo.AttendanceStatVO;
@@ -21,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

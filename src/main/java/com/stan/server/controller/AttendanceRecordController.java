@@ -1,29 +1,20 @@
 package com.stan.server.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stan.server.entity.AttendanceRecord;
-import com.stan.server.enums.AttendanceModeEnum;
-import com.stan.server.enums.RecordTypeEnum;
 import com.stan.server.model.RecordRequestParam;
 import com.stan.server.model.vo.AttendanceRecordVO;
 import com.stan.server.model.vo.AttendanceVO;
 import com.stan.server.service.AttendanceRecordService;
-import com.stan.server.service.UserService;
 import com.stan.server.utils.ResultVO;
 import com.stan.server.utils.SecurityAuthUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>
