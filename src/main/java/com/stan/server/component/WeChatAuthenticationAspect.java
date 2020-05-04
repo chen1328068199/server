@@ -73,7 +73,7 @@ public class WeChatAuthenticationAspect {
         try {
             String class_name = pjp.getTarget().getClass().getName();
             String method_name = pjp.getSignature().getName();
-            if (method_name.contains("login"))
+            if (method_name.contains("login") || method_name.contains("notAuth"))
                 return pjp.proceed();
             // 获取方法参数名称
             String[] paramNames = getFieldsName(class_name, method_name);

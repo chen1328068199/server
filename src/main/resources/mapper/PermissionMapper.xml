@@ -3,16 +3,17 @@
 <mapper namespace="com.stan.server.mapper.PermissionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.stan.server.bean.Permission">
+    <resultMap id="BaseResultMap" type="com.stan.server.entity.Permission">
         <id column="id" property="id" />
         <result column="permission" property="permission" />
         <result column="description" property="description" />
         <result column="menu_id" property="menuId" />
+        <result column="title" property="title" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, permission, description, menu_id
+        id, permission, description, menu_id, title
     </sql>
 
 </mapper>

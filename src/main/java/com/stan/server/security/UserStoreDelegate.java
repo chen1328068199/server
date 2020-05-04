@@ -1,6 +1,6 @@
 package com.stan.server.security;
 
-import com.stan.server.bean.Role;
+import com.stan.server.entity.Role;
 import com.stan.server.mapper.UserMapper;
 import com.stan.server.model.MyUserDetails;
 import com.stan.server.model.vo.UserVO;
@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

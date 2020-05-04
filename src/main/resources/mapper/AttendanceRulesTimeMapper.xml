@@ -3,18 +3,17 @@
 <mapper namespace="com.stan.server.mapper.AttendanceRulesTimeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.stan.server.bean.AttendanceRulesTime">
+    <resultMap id="BaseResultMap" type="com.stan.server.entity.AttendanceRulesTime">
         <id column="id" property="id" />
         <result column="effective_date" property="effectiveDate" />
-        <result column="start_time" property="startTime" />
-        <result column="end_time" property="endTime" />
-        <result column="attendance_purpose" property="attendancePurpose" />
         <result column="status" property="status" />
+        <result column="rule_id" property="ruleId" />
+        <result column="attendance_way" property="attendanceWay" />
     </resultMap>
 
-        <!-- 通用查询结果列 -->
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, effective_date, start_time, end_time, attendance_purpose, status
+        id, effective_date, status, rule_id, attendance_way
     </sql>
 
 </mapper>

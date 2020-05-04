@@ -3,17 +3,16 @@ package com.stan.server.enums;
 import lombok.Getter;
 
 @Getter
-public enum AttendanceModeEnum {
-    LOCATION(0, "位置考勤"),
-    CODE(1, "口令"),
-    QRCode(2, "二维码"),
+public enum AttendancePurposeEnum {
+    BEGIN_WORKING(0, "上班打卡"),
+    END_WORKING(1, "下班打卡"),
     ;
 
     private Integer code;
 
     private String message;
 
-    AttendanceModeEnum(Integer code, String message) {
+    AttendancePurposeEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

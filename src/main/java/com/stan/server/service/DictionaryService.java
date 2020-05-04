@@ -1,6 +1,6 @@
 package com.stan.server.service;
 
-import com.stan.server.bean.Dictionary;
+import com.stan.server.entity.Dictionary;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

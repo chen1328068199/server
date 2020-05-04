@@ -1,9 +1,10 @@
 package com.stan.server.service.impl;
 
-import com.stan.server.bean.AttendanceRecord;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.stan.server.entity.AttendanceRecord;
 import com.stan.server.mapper.AttendanceRecordMapper;
 import com.stan.server.service.AttendanceRecordService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,9 +13,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Ren
- * @since 2020-04-04
+ * @since 2020-05-03
  */
 @Service
-        public class AttendanceRecordServiceImpl extends ServiceImpl<AttendanceRecordMapper, AttendanceRecord> implements AttendanceRecordService {
+public class AttendanceRecordServiceImpl extends ServiceImpl<AttendanceRecordMapper, AttendanceRecord> implements AttendanceRecordService {
 
-        }
+}

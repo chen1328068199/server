@@ -1,7 +1,7 @@
 package com.stan.server.mapper;
  
-import com.stan.server.bean.Menu;
-import com.stan.server.bean.Role;
+import com.stan.server.entity.Menu;
+import com.stan.server.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,5 +30,11 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     List<Integer> listRoleIdByRole(@Param("roles") Collection<String> roles);
 
-    List<Menu> listMenuByRoleIds(@Param("roleIds") List<Integer> roleIds);
+    List<Menu> listMenusByRoleIds(@Param("roleIds") Collection<Integer> roleIds);
+
+    List<Menu> listMenusByRoleId(@Param("roleId") Integer roleId);
+
+    List<Integer> listPermissionIdsByRoleId(@Param("roleId") Integer id);
+
+    List<Role> listSysRolesFromUser(@Param("userId") Integer userId);
 }

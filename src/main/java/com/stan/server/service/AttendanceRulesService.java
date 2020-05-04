@@ -1,7 +1,7 @@
 package com.stan.server.service;
 
-import com.stan.server.bean.AttendanceRules;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.stan.server.entity.AttendanceRules;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Ren
- * @since 2020-04-04
+ * @since 2020-05-03
  */
 public interface AttendanceRulesService extends IService<AttendanceRules> {
 
-        }
+}

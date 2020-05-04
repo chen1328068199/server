@@ -1,4 +1,4 @@
-package com.stan.server.bean;
+package com.stan.server.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;

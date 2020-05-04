@@ -1,9 +1,9 @@
 package com.stan.server.service.impl;
 
-import com.stan.server.bean.AttendanceRules;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.stan.server.entity.AttendanceRules;
 import com.stan.server.mapper.AttendanceRulesMapper;
 import com.stan.server.service.AttendanceRulesService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Ren
- * @since 2020-04-04
+ * @since 2020-05-03
  */
 @Service
 public class AttendanceRulesServiceImpl extends ServiceImpl<AttendanceRulesMapper, AttendanceRules> implements AttendanceRulesService {

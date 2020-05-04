@@ -3,7 +3,7 @@
 <mapper namespace="com.stan.server.mapper.MenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.stan.server.bean.Menu">
+    <resultMap id="BaseResultMap" type="com.stan.server.entity.Menu">
         <id column="id" property="id" />
         <result column="title" property="title" />
         <result column="name" property="name" />

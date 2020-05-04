@@ -17,15 +17,21 @@ public class AttendanceServiceImpl implements AttendanceService {
 //    private AttendanceRulesService attendanceRulesService;
 
     @Override
-    @Cacheable(value = "QRCodeCache", key = "#attendanceCacheKey")
-    public String getQRCodeAttendanceKey(String attendanceCacheKey) {
+    @Cacheable(value = "CodeCache", key = "#attendanceCacheKey")
+    public String getCodeAttendanceKey(String attendanceCacheKey) {
         return null;
     }
 
     @Override
-    @CachePut(value = "QRCodeCache", key = "#attendanceCacheKey")
-    public String updateQRCodeAttendanceKey(String attendanceCacheKey, Integer length) {
+    @CachePut(value = "CodeCache", key = "#attendanceCacheKey")
+    public String updateCodeAttendanceKey(String attendanceCacheKey, Integer length) {
         return RandomStringUtils.randomAlphabetic(length);
+    }
+
+    @Override
+    @CachePut(value = "CodeCache", key = "#attendanceCacheKey")
+    public String updateCodeAttendanceKey(String attendanceCacheKey, String code) {
+        return code;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.stan.server.bean;
+package com.stan.server.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -43,6 +43,14 @@ public class Permission implements Serializable {
     @TableField("menu_id")
     private Integer menuId;
 
+    @ApiModelProperty(value = "权限所属菜单")
+    @TableField(exist = false)
+    private String menuName;
+
+    @ApiModelProperty(value = "显示给用户")
+    @TableField("title")
+    private String title;
+
 
     public static final String ID = "id";
 
@@ -51,5 +59,7 @@ public class Permission implements Serializable {
     public static final String DESCRIPTION = "description";
 
     public static final String MENU_ID = "menu_id";
+
+    public static final String TITLE = "title";
 
 }

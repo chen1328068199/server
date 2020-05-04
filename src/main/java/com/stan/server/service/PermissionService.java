@@ -1,8 +1,12 @@
 package com.stan.server.service;
 
-import com.stan.server.bean.Permission;
+import com.stan.server.entity.Permission;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.stan.server.model.vo.MenuVO;
 import com.stan.server.utils.ResultVO;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +19,6 @@ import com.stan.server.utils.ResultVO;
 public interface PermissionService extends IService<Permission> {
 
     ResultVO<Object> updatePermission(Permission permission);
+    List<MenuVO> listPermission();
+    List<MenuVO> listPermission(Collection<Integer> menuIds, Collection<Integer> permissionIds);
 }

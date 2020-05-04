@@ -1,16 +1,11 @@
 package com.stan.server.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.stan.server.model.SysUser;
 import com.stan.server.model.wx.WxLoginInfo;
 import com.stan.server.service.LoginService;
-import com.stan.server.service.UserService;
 import com.stan.server.utils.ResultVO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Case;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

@@ -1,6 +1,6 @@
 package com.stan.server.service.impl;
 
-import com.stan.server.bean.Dictionary;
+import com.stan.server.entity.Dictionary;
 import com.stan.server.mapper.DictionaryMapper;
 import com.stan.server.service.DictionaryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

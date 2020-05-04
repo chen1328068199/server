@@ -3,7 +3,7 @@
 <mapper namespace="com.stan.server.mapper.RoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.stan.server.bean.Role">
+    <resultMap id="BaseResultMap" type="com.stan.server.entity.Role">
         <id column="id" property="id" />
         <result column="role" property="role" />
         <result column="name" property="name" />
@@ -16,11 +16,11 @@
         id, role, `name`, `describe`, `status`
     </sql>
 
-    <select id="getRolesFromUser" resultType="com.stan.server.bean.Role">
+    <select id="getRolesFromUser" resultType="com.stan.server.entity.Role">
 		SELECT
 	        r.id, role, `name`, `describe`, `status`
         FROM
-            sys_role AS r LEFT OUTER JOIN r_user_role AS ur
+            sys_role AS r LEFT OUTER JOIN sys_user_role AS ur
             ON r.id=ur.role_id
         WHERE
 	        ur.user_id=#{userId}
@@ -37,7 +37,7 @@
             </foreach>
 	</select>
 
-    <select id="listMenuByRoleIds" resultType="com.stan.server.bean.Menu">
+    <select id="listMenusByRoleIds" resultType="com.stan.server.entity.Menu">
 		SELECT
 	        m.id,
 	        m.name,
@@ -58,15 +58,36 @@
             </foreach>
 	</select>
 
+    <select id="listMenusByRoleId" resultType="com.stan.server.entity.Menu">
+		SELECT
+	        m.id,
+	        m.name,
+	        m.redirect,
+	        m.title,
+	        m.hide_in_menu,
+	        m.component,
+	        m.parent_id,
+	        m.children_id,
+	        m.sort,
+	        m.remark,
+	        m.icon
+        FROM
+            sys_role_menu AS rm INNER JOIN sys_menu AS m ON rm.menu_id=m.id
+        WHERE
+	        role_id=#{roleId}
+	</select>
+
     <insert id="roleAddMenu">
-        <foreach collection="menuIds" item="menuId">
-            INSERT INTO sys_role_menu(role_id, menu_id) VALUES(#{roleId}, #{menuId})
+        INSERT INTO sys_role_menu(role_id, menu_id) VALUES
+        <foreach collection="menuIds" item="menuId" separator=",">
+            (#{roleId}, #{menuId})
         </foreach>
 	</insert>
 
     <insert id="roleAddPermission">
-        <foreach collection="permissionIds" item="permissionId">
-            INSERT INTO sys_role_permission(role_id, permission_id) VALUES(#{roleId}, #{permissionId})
+        INSERT INTO sys_role_permission(role_id, permission_id) VALUES
+        <foreach collection="permissionIds" item="permissionId" separator=",">
+            (#{roleId}, #{permissionId})
         </foreach>
 	</insert>
 
@@ -77,5 +98,13 @@
     <delete id="deletePermissionsFromRoleId">
         DELETE FROM sys_role_permission WHERE role_id=#{roleId}
 	</delete>
+    <select id="listPermissionIdsByRoleId" resultType="Integer">
+        SELECT permission_id FROM sys_role_permission WHERE role_id=#{roleId}
+    </select>
+    <select id="listSysRolesFromUser" resultMap="BaseResultMap">
+        SELECT r.`id`, r.`role`, r.`name`, r.`describe`, r.`status`
+        FROM sys_user_role AS ur LEFT JOIN sys_role AS r ON ur.role_id=r.id
+        WHERE ur.user_id=#{userId}
+    </select>
 
 </mapper>

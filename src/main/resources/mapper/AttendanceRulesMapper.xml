@@ -2,20 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stan.server.mapper.AttendanceRulesMapper">
 
-        <!-- 通用查询映射结果 -->
-        <resultMap id="BaseResultMap" type="com.stan.server.bean.AttendanceRules">
-            <id column="id" property="id" />
-            <result column="lon" property="lon" />
-            <result column="lat" property="lat" />
-            <result column="distance" property="distance" />
-            <result column="way" property="way" />
-            <result column="attendance_word" property="attendanceWord" />
-            <result column="status" property="status" />
-        </resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stan.server.entity.AttendanceRules">
+        <id column="id" property="id" />
+        <result column="lon" property="lon" />
+        <result column="lat" property="lat" />
+        <result column="distance" property="distance" />
+        <result column="way" property="way" />
+        <result column="attendance_code" property="attendanceCode" />
+        <result column="status" property="status" />
+        <result column="begin_work_time" property="beginWorkTime" />
+        <result column="end_work_time" property="endWorkTime" />
+        <result column="begin_work_end_time" property="beginWorkEndTime" />
+        <result column="end_work_end_time" property="endWorkEndTime" />
+        <result column="description" property="description" />
+    </resultMap>
 
-        <!-- 通用查询结果列 -->
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, lon, lat, distance, way, attendance_word, status
+        id, lon, lat, distance, way, attendance_code, status, begin_work_time, end_work_time, begin_work_end_time, end_work_end_time, description
     </sql>
 
 </mapper>

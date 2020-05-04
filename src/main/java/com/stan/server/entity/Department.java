@@ -1,14 +1,16 @@
-package com.stan.server.bean;
+package com.stan.server.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -16,7 +18,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Ren
- * @since 2020-04-06
+ * @since 2020-05-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,7 +30,7 @@ public class Department implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
-    @TableId("id")
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty(value = "名称")
@@ -43,6 +45,18 @@ public class Department implements Serializable {
     @TableField("children_id")
     private String childrenId;
 
+    @ApiModelProperty(value = "部门描述")
+    @TableField("description")
+    private String description;
+
+    @ApiModelProperty(value = "部门负责人ID")
+    @TableField("user_id")
+    private Integer userId;
+
+    @ApiModelProperty(value = "部门负责人")
+    @TableField(exist = false)
+    private String user;
+
 
     public static final String ID = "id";
 
@@ -51,5 +65,9 @@ public class Department implements Serializable {
     public static final String PARENT_ID = "parent_id";
 
     public static final String CHILDREN_ID = "children_id";
+
+    public static final String DESCRIPTION = "description";
+
+    public static final String USER_ID = "user_id";
 
 }

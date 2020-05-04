@@ -4,6 +4,8 @@ import com.google.zxing.WriterException;
 import com.stan.server.service.AttendanceService;
 import com.stan.server.utils.*;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class AttendanceController {
     @ApiOperation("获取二维码")
     public void getQRCode(HttpServletResponse resp) {
         String attendanceCacheKey = "QRCodeKey";
-        String qrCode = attendanceService.updateQRCodeAttendanceKey(attendanceCacheKey, 13);
+        String qrCode = attendanceService.updateCodeAttendanceKey(attendanceCacheKey, 13);
         // 生成二维码图像流输出到Servlet输出流中。
         try (ServletOutputStream outputStream = resp.getOutputStream()) {
             byte[] bytes = QRCodeUtils.generateQRCodeImageStream(qrCode, 1080, 1080);
@@ -44,5 +46,16 @@ public class AttendanceController {
         } catch (IOException | WriterException e) {
             e.printStackTrace();
         }
+    }
+
+    @PostMapping("code")
+    @ApiOperation("设置考勤口令")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "code", value = "口令", required = true, dataType = "String"),
+    })
+    public ResultVO<Object> setCode(@RequestParam("code") String code) {
+        String attendanceCacheKey = "codeKey";
+        attendanceService.updateCodeAttendanceKey(attendanceCacheKey, code);
+        return ResultVO.success();
     }
 }

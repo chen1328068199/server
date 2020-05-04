@@ -2,9 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stan.server.mapper.UserMapper">
-    <delete id="deleteBySb">
-        delete from sys_user where id = 2
-    </delete>
     <select id="getUserInfoById" resultType="com.stan.server.model.vo.UserVO">
         SELECT
 	    su.id,
@@ -14,7 +11,7 @@
 	    GROUP_CONCAT(sr.role) AS roles
         FROM
 	    sys_user AS su,
-	    r_user_role AS rur,
+	    sys_user_role AS rur,
 	    sys_role AS sr
         WHERE
 	    su.id = #{id}
@@ -37,10 +34,21 @@
 	    id,
 	    user_name,
 	    user_password,
-	    open_id
+	    open_id,
+	    phone_number,
+	    user_code
         FROM
 	    sys_user
         WHERE
 	    open_id = #{openId}
 	</select>
+	<insert id="updateUserRole">
+		INSERT INTO sys_user_role(`user_id`, `role_id`) VALUES
+		<foreach collection="roleIds" item="roleId" separator=",">
+			(#{userId}, #{roleId})
+		</foreach>
+	</insert>
+	<delete id="deleteRoleFromUser">
+		DELETE FROM sys_user_role WHERE `user_id`=#{userId}
+	</delete>
 </mapper>

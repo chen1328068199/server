@@ -3,15 +3,13 @@ package com.stan.server.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.stan.server.bean.Menu;
-import com.stan.server.bean.Role;
+import com.stan.server.entity.Menu;
 import com.stan.server.mapper.MenuMapper;
 import com.stan.server.service.MenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.stan.server.service.RoleService;
 import com.stan.server.utils.ResultVO;
 import com.stan.server.utils.SecurityAuthUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -40,7 +38,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         for (GrantedAuthority authority : authorities) {
             roleSet.add(authority.getAuthority());
         }
-        List<Menu> menusFromRoles = roleService.getMenusFromRoles(roleSet);
+        List<Menu> menusFromRoles = roleService.listMenusFromRoles(roleSet);
         HashMap<Integer, JSONArray> menuMap = new HashMap<>();
         while (true) {
             HashSet<Integer> parentIds = new HashSet<>(menusFromRoles.size());

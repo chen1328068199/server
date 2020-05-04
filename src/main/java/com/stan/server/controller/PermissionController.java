@@ -1,8 +1,8 @@
 package com.stan.server.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.stan.server.bean.Permission;
+import com.stan.server.entity.Permission;
+import com.stan.server.model.vo.MenuVO;
 import com.stan.server.service.PermissionService;
 import com.stan.server.utils.ResultVO;
 import io.swagger.annotations.ApiImplicitParam;
@@ -33,10 +33,16 @@ public class PermissionController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "menuId", value = "权限所属页面ID", required = true, dataType = "Integer"),
     })
-    public ResultVO<List<Permission>> page(@RequestParam("menuId") int menuId) {
+    public ResultVO<List<Permission>> listByMenu(@RequestParam("menuId") int menuId) {
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("menu_id", menuId);
         return ResultVO.success(permissionService.list(queryWrapper));
+    }
+
+    @GetMapping("listAll")
+    @ApiOperation("获得所有权限")
+    public ResultVO<List<MenuVO>> listAll() {
+        return ResultVO.success(permissionService.listPermission());
     }
 
     @PostMapping("add")
@@ -44,7 +50,7 @@ public class PermissionController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "permission", value = "权限名", required = true, dataType = "String"),
             @ApiImplicitParam(name = "description", value = "权限描述", dataType = "String"),
-            @ApiImplicitParam(name = "menuId", value = "角色名", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "menuId", value = "所属菜单", required = true, dataType = "String"),
     })
     public ResultVO<Object> add(@RequestParam("permission") Permission permission) {
         permissionService.save(permission);

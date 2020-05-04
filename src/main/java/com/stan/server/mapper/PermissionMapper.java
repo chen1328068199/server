@@ -1,6 +1,6 @@
 package com.stan.server.mapper;
  
-import com.stan.server.bean.Permission;
+import com.stan.server.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  
 /**

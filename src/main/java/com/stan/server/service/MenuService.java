@@ -1,6 +1,6 @@
 package com.stan.server.service;
 
-import com.stan.server.bean.Menu;
+import com.stan.server.entity.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.stan.server.utils.ResultVO;
 

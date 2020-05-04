@@ -28,7 +28,7 @@ public class MpGenerator {
         // 作者
         String author = "Ren";
         // 需要生成的表
-        String[] tables = new String[]{"c_department", "c_company"};
+        String[] tables = new String[]{"attendance_rules_time", "attendance_rules", "attendance_record"};
         // 包名前缀
         String parent = "com.stan.server";
         // 所在包
@@ -165,10 +165,10 @@ public class MpGenerator {
         // 放置自己项目的 src/main/resources/templates 目录下, 默认名称一下可以不配置，也可以自定义模板名称
         TemplateConfig tc = new TemplateConfig();
 //        tc.setController("/template/controller.java.vm");
-        tc.setService("/template/service.java.vm");
-        tc.setServiceImpl("/template/serviceImpl.java.vm");
+//        tc.setService("/template/service.java.vm");
+//        tc.setServiceImpl("/template/serviceImpl.java.vm");
         tc.setEntity("/template/entity.java.vm");
-        tc.setMapper("/template/mapper.java.vm");
+//        tc.setMapper("/template/mapper.java.vm");
 //        tc.setXml("/template/mapper.xml.vm");
         // 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
         mpg.setTemplate(tc);

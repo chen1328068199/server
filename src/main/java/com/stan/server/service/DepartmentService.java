@@ -1,6 +1,6 @@
 package com.stan.server.service;
 
-import com.stan.server.bean.Department;
+import com.stan.server.entity.Department;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface DepartmentService extends IService<Department> {
 
-        }
+    void delete(Integer id);
+}

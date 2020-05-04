@@ -1,9 +1,7 @@
 package com.stan.server.service;
 
-import com.stan.server.bean.AttendanceRulesTime;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.time.LocalDate;
+import com.stan.server.entity.AttendanceRulesTime;
 
 /**
  * <p>
@@ -11,8 +9,8 @@ import java.time.LocalDate;
  * </p>
  *
  * @author Ren
- * @since 2020-04-04
+ * @since 2020-05-03
  */
 public interface AttendanceRulesTimeService extends IService<AttendanceRulesTime> {
-    AttendanceRulesTime getRulesByDate(LocalDate date);
+
 }
