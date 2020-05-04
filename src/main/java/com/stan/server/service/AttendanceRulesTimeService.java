@@ -3,6 +3,8 @@ package com.stan.server.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.stan.server.entity.AttendanceRulesTime;
 
+import java.time.LocalDate;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,7 @@ import com.stan.server.entity.AttendanceRulesTime;
  */
 public interface AttendanceRulesTimeService extends IService<AttendanceRulesTime> {
 
+    void setDay(LocalDate date, Integer needWorking);
+
+    boolean needWorking(LocalDate date);
 }

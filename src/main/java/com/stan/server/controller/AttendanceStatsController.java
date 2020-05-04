@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -51,7 +52,9 @@ public class AttendanceStatsController {
             @ApiImplicitParam(name = "date", value = "查询日期", required = true)
     })
     public ResultVO<List<AttendanceRecordStatVO>> getHistoryStatsFromUser(@RequestParam("userId") Integer userId,
-                                                                          @RequestParam("date") LocalDate date) {
+                                                                          @RequestParam("date")
+                                                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                                  LocalDate date) {
         return ResultVO.success(attendanceStatsService.attendanceStatsService(userId, date));
     }
 
@@ -60,7 +63,9 @@ public class AttendanceStatsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "date", value = "查询日期", required = true)
     })
-    public ResultVO<List<AttendanceRecordStatVO>> getHistoryStatsFromCurrentUser(@RequestParam("date") LocalDate date) {
+    public ResultVO<List<AttendanceRecordStatVO>> getHistoryStatsFromCurrentUser(@RequestParam("date")
+                                                                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                                         LocalDate date) {
         return ResultVO.success(attendanceStatsService.attendanceStatsService(SecurityAuthUtil.getLoginId(), date));
     }
 

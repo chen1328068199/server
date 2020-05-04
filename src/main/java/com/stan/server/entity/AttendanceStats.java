@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -48,7 +49,7 @@ public class AttendanceStats implements Serializable {
 
     @ApiModelProperty(value = "考勤日期")
     @TableField("attendance_date")
-    private LocalTime attendanceDate;
+    private LocalDate attendanceDate;
 
     @ApiModelProperty(value = "上班打卡时间")
     @TableField("begin_working_time")

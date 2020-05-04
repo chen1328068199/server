@@ -16,7 +16,6 @@ import com.stan.server.service.AttendanceRecordService;
 import com.stan.server.service.DepartmentService;
 import com.stan.server.service.UserService;
 import com.stan.server.utils.ResultVO;
-import com.stan.server.utils.SecurityAuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +45,7 @@ public class AttendanceRecordServiceImpl extends ServiceImpl<AttendanceRecordMap
 
     @Override
     public Page<AttendanceRecordVO> pageOrderByAttendanceTime(Page<AttendanceRecord> page, RecordRequestParam requestParam) {
+        // 查询员工信息
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.select("id", "user_code", "department_id");
         userQueryWrapper.eq(requestParam.getDepartmentId() != null, "department_id", requestParam.getDepartmentId());
@@ -57,6 +57,7 @@ public class AttendanceRecordServiceImpl extends ServiceImpl<AttendanceRecordMap
             return voPage;
         List<Integer> list = users.stream().map(User::getId).collect(Collectors.toList());
         Map<Integer, User> map = users.stream().collect(Collectors.toMap(User::getId, Function.identity()));
+        // 查询考勤记录信息
         QueryWrapper<AttendanceRecord> recordQueryWrapper = new QueryWrapper<>();
         recordQueryWrapper.ge(requestParam.getStartDate() != null, "attendance_time", requestParam.getStartDate());
         recordQueryWrapper.le(requestParam.getEndDate() != null, "attendance_time", requestParam.getEndDate());
@@ -69,12 +70,13 @@ public class AttendanceRecordServiceImpl extends ServiceImpl<AttendanceRecordMap
         List<AttendanceRecord> records = page.getRecords();
         if (records == null || records.size() == 0)
             return voPage;
-        List<AttendanceRecordVO> list1 = new ArrayList<>(records.size());
+        // 封装结果
+        List<AttendanceRecordVO> vos = new ArrayList<>(records.size());
         Map<Integer, String> departmentMap = new HashMap<>();
         for (AttendanceRecord record : records) {
             AttendanceRecordVO vo = new AttendanceRecordVO();
-            Integer id = record.getId();
-            User user = map.get(id);
+            Integer userId = record.getUserId();
+            User user = map.get(userId);
             if (user != null) {
                 vo.setUserCode(user.getUserCode());
                 Integer departmentId = user.getDepartmentId();
@@ -88,16 +90,16 @@ public class AttendanceRecordServiceImpl extends ServiceImpl<AttendanceRecordMap
                     vo.setDepartment(departmentName);
                 }
             }
-            vo.setId(id);
-            vo.setUserId(record.getUserId());
+            vo.setId(record.getId());
+            vo.setUserId(userId);
             vo.setUserName(record.getUserName());
-            vo.setCreateTime(record.getAttendanceTime());
+            vo.setAttendanceTime(record.getAttendanceTime());
             vo.setAttendanceMode(AttendanceModeEnum.getMessageByCode(record.getAttendanceMode()));
             vo.setAddress(record.getAddress());
             vo.setType(RecordTypeEnum.getMessageByCode(record.getType()));
-            list1.add(vo);
+            vos.add(vo);
         }
-        voPage.setRecords(list1);
+        voPage.setRecords(vos);
         return voPage;
     }
 

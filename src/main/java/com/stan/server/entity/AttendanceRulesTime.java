@@ -42,11 +42,11 @@ public class AttendanceRulesTime implements Serializable {
     @TableField("status")
     private Integer status;
 
-    @ApiModelProperty(value = "关联考勤ID")
+    @ApiModelProperty(value = "关联考勤ID, 暂不使用")
     @TableField("rule_id")
     private Integer ruleId;
 
-    @ApiModelProperty(value = "考勤方式")
+    @ApiModelProperty(value = "考勤方式, 暂不使用")
     @TableField("attendance_way")
     private Integer attendanceWay;
 }

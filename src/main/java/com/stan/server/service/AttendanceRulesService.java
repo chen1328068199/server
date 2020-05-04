@@ -13,4 +13,5 @@ import com.stan.server.entity.AttendanceRules;
  */
 public interface AttendanceRulesService extends IService<AttendanceRules> {
 
+    AttendanceRules getByAttendanceWay(Integer attendanceWay);
 }

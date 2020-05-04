@@ -20,7 +20,7 @@ public class AttendanceRecordVO {
     private String userName;
 
     @ApiModelProperty(value = "考勤时间")
-    private LocalDateTime createTime;
+    private LocalDateTime attendanceTime;
 
     @ApiModelProperty(value = "考勤方式")
     private String attendanceMode;

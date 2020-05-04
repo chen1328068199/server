@@ -14,6 +14,7 @@ import com.stan.server.utils.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -32,19 +33,12 @@ public class SignInServiceImpl implements SignInService {
 
     @Override
     public ResultVO<Object> signIn(String openId, AttendanceModeEnum modeEnum, double longitude, double latitude, String address, Integer type) {
-        // 查询当天符合该考勤方式的考勤规则
         LocalDateTime now = LocalDateTime.now();
-        QueryWrapper<AttendanceRulesTime> rulesTimeQueryWrapper = new QueryWrapper<>();
-        rulesTimeQueryWrapper.select("rule_id");
-        rulesTimeQueryWrapper.eq("effective_date", now.toLocalDate().toString());
-        rulesTimeQueryWrapper.eq("`status`", StatusEnum.NORMAL.getCode());
-        AttendanceRulesTime rulesTime = attendanceRulesTimeService.getOne(rulesTimeQueryWrapper);
-        Integer ruleId;
-        if (rulesTime == null || (ruleId = rulesTime.getRuleId()) == null) {
-            return ResultVO.fail("不支持该考勤方式或者不需要考勤");
+        if (!attendanceRulesTimeService.needWorking(now.toLocalDate())) {
+            return ResultVO.fail("不需要考勤");
         }
         // 进行考勤
-        AttendanceRules attendanceRules = attendanceRulesService.getById(ruleId);
+        AttendanceRules attendanceRules = attendanceRulesService.getByAttendanceWay(modeEnum.getCode());
         if (attendanceRules == null) {
             return ResultVO.fail("不支持该考勤方式或者不需要考勤");
         }
@@ -83,6 +77,7 @@ public class SignInServiceImpl implements SignInService {
         attendanceRecord.setLocationLon(longitude);
         attendanceRecord.setAddress(address);
         attendanceRecord.setType(type);
+        attendanceRecord.setUserName(userInfo.getName());
 
         attendanceRecordService.save(attendanceRecord);
         return ResultVO.success();
