@@ -66,6 +66,19 @@ public class AttendanceRulesController {
         return ResultVO.success();
     }
 
+    @GetMapping("getDay")
+    @ApiOperation("查看日期是否需要考勤")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "date", value = "日期", required = true),
+            @ApiImplicitParam(name = "needWorking", value = "是否需要工作 1：需要 0：不需要", required = true),
+    })
+    public ResultVO<Integer> getDay(@RequestParam("date")
+                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                        LocalDate date) {
+        boolean needWorking = attendanceRulesTimeService.needWorking(date);
+        return ResultVO.success(needWorking ? 1 : 0);
+    }
+
 //    @GetMapping("add")
 //    @ApiOperation("新增考勤规则")
 //    public ResultVO<IPage<AttendanceRules>> add(AttendanceRules rule) {

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class AttendanceStatVO {
+public class AttendanceStatPieChartVO {
     @ApiModelProperty(value = "数量")
     private Integer number;
 

@@ -8,7 +8,7 @@ import com.stan.server.mapper.AttendanceStatsMapper;
 import com.stan.server.mapper.UserMapper;
 import com.stan.server.model.AttendanceStatsRequestParam;
 import com.stan.server.model.vo.AttendanceRecordStatVO;
-import com.stan.server.model.vo.AttendanceStatVO;
+import com.stan.server.model.vo.AttendanceStatLineChartVO;
 import com.stan.server.service.AttendanceStatsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class AttendanceStatsServiceImpl extends ServiceImpl<AttendanceStatsMappe
     private UserMapper userMapper;
 
     @Override
-    public List<AttendanceStatVO> getStats(AttendanceStatsRequestParam requestParam) {
+    public List<AttendanceStatLineChartVO> getStats(AttendanceStatsRequestParam requestParam) {
         LocalDate endDate = requestParam.getEndDate();
         if (endDate == null) {
             requestParam.setEndDate(LocalDate.now().minusDays(1));
@@ -43,7 +43,7 @@ public class AttendanceStatsServiceImpl extends ServiceImpl<AttendanceStatsMappe
         if (requestParam.getStartDate() == null)
             requestParam.setStartDate(endDate.minusDays(7));
 
-        List<AttendanceStatVO> vos = new LinkedList<>();
+        List<AttendanceStatLineChartVO> vos = new LinkedList<>();
         for (LocalDate date = requestParam.getStartDate(); date.compareTo(endDate) <= 0; date = date.plusDays(1)) {
             QueryWrapper<AttendanceStats> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("attendance_date", date);
@@ -54,7 +54,7 @@ public class AttendanceStatsServiceImpl extends ServiceImpl<AttendanceStatsMappe
             queryWrapper.eq(requestParam.getAttendanceWay() != null, "attendance_way", requestParam.getAttendanceWay());
             queryWrapper.eq(requestParam.getAttendanceStatus() != null, "status", requestParam.getAttendanceStatus());
             int count = count(queryWrapper);
-            AttendanceStatVO vo = new AttendanceStatVO();
+            AttendanceStatLineChartVO vo = new AttendanceStatLineChartVO();
             vo.setNumber(count);
             vo.setDate(date);
             vos.add(vo);

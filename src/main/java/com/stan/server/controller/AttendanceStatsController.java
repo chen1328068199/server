@@ -2,7 +2,7 @@ package com.stan.server.controller;
 
 import com.stan.server.model.AttendanceStatsRequestParam;
 import com.stan.server.model.vo.AttendanceRecordStatVO;
-import com.stan.server.model.vo.AttendanceStatVO;
+import com.stan.server.model.vo.AttendanceStatLineChartVO;
 import com.stan.server.service.AttendanceStatsService;
 import com.stan.server.utils.ResultVO;
 import com.stan.server.utils.SecurityAuthUtil;
@@ -37,7 +37,7 @@ public class AttendanceStatsController {
 
     @GetMapping("statisticInfo")
     @ApiOperation("考勤统计信息")
-    public ResultVO<List<AttendanceStatVO>> page(AttendanceStatsRequestParam requestParam) {
+    public ResultVO<List<AttendanceStatLineChartVO>> page(AttendanceStatsRequestParam requestParam) {
         if (requestParam.getEndDate() == null)
             requestParam.setEndDate(LocalDate.now().minusDays(1));
         if (requestParam.getStartDate() == null)
