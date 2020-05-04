@@ -6,18 +6,19 @@
     <resultMap id="BaseResultMap" type="com.stan.server.entity.AttendanceRecord">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
         <result column="location_lat" property="locationLat" />
         <result column="location_lon" property="locationLon" />
-        <result column="create_time" property="createTime" />
+        <result column="attendance_time" property="attendanceTime" />
         <result column="attendance_mode" property="attendanceMode" />
         <result column="rule_id" property="ruleId" />
         <result column="address" property="address" />
-        <result column="purpose" property="purpose" />
+        <result column="type" property="type" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id, location_lat, location_lon, create_time, attendance_mode, rule_id, address, purpose
+        id, user_id, location_lat, location_lon, attendance_time, attendance_mode, rule_id, address, `type`, user_name
     </sql>
 
 </mapper>

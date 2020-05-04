@@ -3,7 +3,7 @@ package com.stan.server.enums;
 import lombok.Getter;
 
 @Getter
-public enum AttendanceSituationEnum {
+public enum AttendanceStatusEnum {
     ABSENCE(0, "缺勤"),
     NORMAL(1, "正常"),
     OVERTIME(2, "加班"),
@@ -21,8 +21,16 @@ public enum AttendanceSituationEnum {
 
     private String message;
 
-    AttendanceSituationEnum(Integer code, String message) {
+    AttendanceStatusEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    public static String getMessageByCode(Integer code) {
+        for (AttendanceStatusEnum anEnum : AttendanceStatusEnum.values()) {
+            if (code.equals(anEnum.code))
+                return anEnum.message;
+        }
+        return null;
     }
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.stan.server.entity.AttendanceRules;
 import com.stan.server.enums.AttendanceModeEnum;
-import com.stan.server.enums.AttendancePurposeEnum;
+import com.stan.server.enums.RecordTypeEnum;
 import com.stan.server.enums.StatusEnum;
 import com.stan.server.model.User;
 import com.stan.server.model.vo.UserVO;
@@ -117,12 +117,12 @@ public class WeChatController {
     public ResultVO<Object> loginByPassword(@RequestParam("openId") String openId,
                                   @RequestParam("userName") String userName,
                                   @RequestParam("password") String password) {
-        UserVO userVO = userService.getUserInfoByName(userName);
-        if (userVO == null)
+        User user = userService.getUserInfoByName(userName);
+        if (user == null)
             return ResultVO.result(232, "该用户不存在");
-        if (userVO.getOpenId() != null && !userVO.getOpenId().equals(openId))
+        if (user.getOpenId() != null && !user.getOpenId().equals(openId))
             return ResultVO.result(2333, "该账号已绑定其它微信");
-        if (!new BCryptPasswordEncoder().matches(password, userVO.getUserPassword())) {
+        if (!new BCryptPasswordEncoder().matches(password, user.getUserPassword())) {
             return ResultVO.result(233, "密码错误");
         }
         UpdateWrapper<User> userVOUpdateWrapper = new UpdateWrapper<>();
@@ -153,9 +153,9 @@ public class WeChatController {
         AttendanceRules rules = list.get(0);
         LocalTime now = LocalTime.now();
         if (now.compareTo(rules.getBeginWorkEndTime()) < 0)
-            return ResultVO.success(AttendancePurposeEnum.BEGIN_WORKING.getCode());
+            return ResultVO.success(RecordTypeEnum.BEGIN_WORKING.getCode());
         else if (now.compareTo(rules.getEndWorkEndTime()) < 0)
-            return ResultVO.success(AttendancePurposeEnum.END_WORKING.getCode());
+            return ResultVO.success(RecordTypeEnum.END_WORKING.getCode());
         return ResultVO.result(200, "已过打卡时间");
     }
 

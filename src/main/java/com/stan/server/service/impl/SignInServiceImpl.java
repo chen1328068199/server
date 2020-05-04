@@ -5,7 +5,7 @@ import com.stan.server.entity.AttendanceRecord;
 import com.stan.server.entity.AttendanceRules;
 import com.stan.server.entity.AttendanceRulesTime;
 import com.stan.server.enums.AttendanceModeEnum;
-import com.stan.server.enums.AttendancePurposeEnum;
+import com.stan.server.enums.RecordTypeEnum;
 import com.stan.server.enums.StatusEnum;
 import com.stan.server.model.vo.UserVO;
 import com.stan.server.service.*;
@@ -31,7 +31,7 @@ public class SignInServiceImpl implements SignInService {
     private UserService userService;
 
     @Override
-    public ResultVO<Object> signIn(String openId, AttendanceModeEnum modeEnum, double longitude, double latitude, String address, Integer purpose) {
+    public ResultVO<Object> signIn(String openId, AttendanceModeEnum modeEnum, double longitude, double latitude, String address, Integer type) {
         // 查询当天符合该考勤方式的考勤规则
         LocalDateTime now = LocalDateTime.now();
         QueryWrapper<AttendanceRulesTime> rulesTimeQueryWrapper = new QueryWrapper<>();
@@ -59,13 +59,13 @@ public class SignInServiceImpl implements SignInService {
         AttendanceRecord attendanceRecord = new AttendanceRecord();
         // 判断时间
         LocalTime localTime = now.toLocalTime();
-        if (purpose.equals(AttendancePurposeEnum.BEGIN_WORKING.getCode())) {
+        if (type.equals(RecordTypeEnum.BEGIN_WORKING.getCode())) {
             // 是否是上班最晚打卡时间
             boolean beginEndTime = localTime.compareTo(attendanceRules.getBeginWorkEndTime()) > 0;
             if (beginEndTime) {
                 return ResultVO.fail("上班打卡时间已过，请补卡");
             }
-        } else if (purpose.equals(AttendancePurposeEnum.END_WORKING.getCode())) {
+        } else if (type.equals(RecordTypeEnum.END_WORKING.getCode())) {
             // 是否是上班最晚打卡时间
             boolean endEndTime = localTime.compareTo(attendanceRules.getEndWorkEndTime()) > 0;
             if (endEndTime) {
@@ -74,14 +74,15 @@ public class SignInServiceImpl implements SignInService {
         } else {
             return ResultVO.fail("暂时不支持该考勤方式");
         }
-        attendanceRecord.setCreateTime(now);
+        attendanceRecord.setAttendanceTime(now);
         UserVO userInfo = userService.getUserInfoByOpenId(openId);
         attendanceRecord.setUserId(userInfo.getId());
+        attendanceRecord.setUserName(userInfo.getName());
         attendanceRecord.setAttendanceMode(modeEnum.getCode());
         attendanceRecord.setLocationLat(latitude);
         attendanceRecord.setLocationLon(longitude);
         attendanceRecord.setAddress(address);
-        attendanceRecord.setPurpose(purpose);
+        attendanceRecord.setType(type);
 
         attendanceRecordService.save(attendanceRecord);
         return ResultVO.success();

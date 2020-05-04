@@ -6,8 +6,7 @@ import com.stan.server.model.vo.UserVO;
 import com.stan.server.utils.ResultVO;
 
 public interface UserService extends IService<User> {
-    UserVO getUserInfoById(Integer id);
-    UserVO getUserInfoByName(String userName);
+    User getUserInfoByName(String userName);
     UserVO getUserInfoByOpenId(String openId);
 
     void updateUser(User user, String roleIds);

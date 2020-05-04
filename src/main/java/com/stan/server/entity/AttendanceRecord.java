@@ -39,6 +39,10 @@ public class AttendanceRecord implements Serializable {
     @TableField("user_id")
     private Integer userId;
 
+    @ApiModelProperty(value = "员工名")
+    @TableField("user_name")
+    private String userName;
+
     @ApiModelProperty(value = "签到地点-纬度")
     @TableField("location_lat")
     private Double locationLat;
@@ -48,8 +52,8 @@ public class AttendanceRecord implements Serializable {
     private Double locationLon;
 
     @ApiModelProperty(value = "考勤时间")
-    @TableField("create_time")
-    private LocalDateTime createTime;
+    @TableField("attendance_time")
+    private LocalDateTime attendanceTime;
 
     @ApiModelProperty(value = "考勤方式")
     @TableField("attendance_mode")
@@ -64,6 +68,6 @@ public class AttendanceRecord implements Serializable {
     private String address;
 
     @ApiModelProperty(value = "考勤状态")
-    @TableField("purpose")
-    private Integer purpose;
+    @TableField("type")
+    private Integer type;
 }

@@ -3,6 +3,7 @@ package com.stan.server.security;
 import com.stan.server.entity.Role;
 import com.stan.server.mapper.UserMapper;
 import com.stan.server.model.MyUserDetails;
+import com.stan.server.model.User;
 import com.stan.server.model.vo.UserVO;
 import com.stan.server.service.RoleService;
 import org.minbox.framework.api.boot.plugin.security.delegate.ApiBootStoreDelegate;
@@ -30,16 +31,16 @@ public class UserStoreDelegate implements ApiBootStoreDelegate {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserVO userVO = userMapper.getUserInfoByName(userName);
-        if (userVO == null || ObjectUtils.isEmpty(userVO)) {
+        User user = userMapper.getUserInfoByName(userName);
+        if (user == null || ObjectUtils.isEmpty(user)) {
             throw new UsernameNotFoundException("该用户不存在！");
         }
         //角色
-        List<Role> roles = sysRoleService.getRolesFromUser(userVO.getId());
+        List<Role> roles = sysRoleService.getRolesFromUser(user.getId());
         Set<SimpleGrantedAuthority> collection = new HashSet<>();
         for (Role role : roles) {
             collection.add(new SimpleGrantedAuthority(role.getRole()));
         }
-        return new MyUserDetails(userVO.getId(), userVO.getUserName(), userVO.getUserPassword(), collection);
+        return new MyUserDetails(user.getId(), user.getUserName(), user.getUserPassword(), collection);
     }
 }

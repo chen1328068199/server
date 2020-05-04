@@ -22,12 +22,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
     @Override
-    public UserVO getUserInfoById(Integer id) {
-        return userMapper.getUserInfoById(id);
-    }
-
-    @Override
-    public UserVO getUserInfoByName(String userName) {
+    public User getUserInfoByName(String userName) {
         return userMapper.getUserInfoByName(userName);
     }
 
@@ -61,13 +56,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResultVO<Object> updateCurrentUserPassword(String oldPassword, String newPassword) {
-        MyUserDetails currentUser = SecurityAuthUtil.getAuthenticationUser();
-        if (!new BCryptPasswordEncoder().matches(oldPassword, currentUser.getPassword())) {
+        int id = SecurityAuthUtil.getLoginId();
+        User user = getById(id);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(oldPassword, user.getUserPassword())) {
             return ResultVO.result(233, "密码错误");
         }
         UpdateWrapper<User> userUpdateWrapper = new UpdateWrapper<>();
-        userUpdateWrapper.set("user_password", newPassword);
-        userUpdateWrapper.eq("id", currentUser.getUserId());
+        userUpdateWrapper.set("user_password", passwordEncoder.encode(newPassword));
+        userUpdateWrapper.eq("id", id);
         update(userUpdateWrapper);
         return ResultVO.success();
     }

@@ -22,10 +22,10 @@ public class User {
     private String userPassword;
     @ApiModelProperty(value = "openId")
     private String openId;
-    @ApiModelProperty(value = "departmentId")
-    private Integer departmentId;
     @ApiModelProperty(value = "phoneNumber")
     private Long phoneNumber;
     @ApiModelProperty(value = "userCode")
     private String userCode;
+    @ApiModelProperty(value = "departmentId")
+    private Integer departmentId;
 }

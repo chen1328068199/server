@@ -20,7 +20,7 @@ public class CacheTest {
     @Test
     public void test() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String encode = bCryptPasswordEncoder.encode("12345");
+        String encode = bCryptPasswordEncoder.encode("1234");
         System.out.println(bCryptPasswordEncoder.matches("12345", encode));
         System.out.println(bCryptPasswordEncoder.matches("1234", encode));
         System.out.println(bCryptPasswordEncoder.matches("145", encode));
