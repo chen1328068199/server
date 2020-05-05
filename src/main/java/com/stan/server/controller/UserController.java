@@ -48,11 +48,11 @@ public class UserController {
                                      @RequestParam("size") int size,
                                      @RequestParam(value = "userName", required = false) String userCode,
                                      @RequestParam(value = "userName", required = false) String userName,
-                                     @RequestParam(value = "phoneNumber", required = false) Integer phoneNumber) {
+                                     @RequestParam(value = "phoneNumber", required = false) String phoneNumber) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.like(userName != null && !userName.trim().equals(""), "user_name", userName);
         queryWrapper.like(userCode != null && !userCode.trim().equals(""), "user_code", userCode);
-        queryWrapper.eq(phoneNumber != null, "phone_number", phoneNumber);
+        queryWrapper.like(phoneNumber != null && !phoneNumber.trim().equals(""), "phone_number", phoneNumber);
         Page<User> page = new Page<>(current, size);
         userService.page(page, queryWrapper);
         List<User> records = page.getRecords();
