@@ -16,7 +16,7 @@
         id, role, `name`, `describe`, `status`
     </sql>
 
-    <select id="getRolesFromUser" resultType="com.stan.server.entity.Role">
+    <select id="listRolesFromUser" resultType="com.stan.server.entity.Role">
 		SELECT
 	        r.id, role, `name`, `describe`, `status`
         FROM

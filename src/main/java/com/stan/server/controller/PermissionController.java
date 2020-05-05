@@ -67,5 +67,14 @@ public class PermissionController {
     public ResultVO<Object> edit(@RequestParam("permission") Permission permission) {
         return permissionService.updatePermission(permission);
     }
+
+    @GetMapping("listPermissionsFromUser")
+    @ApiOperation("获得员工拥有权限")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "员工标识", required = true),
+    })
+    public ResultVO<String> listPermissionsFromUser(@RequestParam("userId") Integer userId) {
+        return ResultVO.success(permissionService.listPermissionsFromUser(userId));
+    }
 }
 

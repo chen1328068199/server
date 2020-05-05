@@ -2,10 +2,12 @@ package com.stan.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.stan.server.entity.Role;
 import com.stan.server.model.MyUserDetails;
 import com.stan.server.model.User;
 import com.stan.server.mapper.UserMapper;
 import com.stan.server.model.vo.UserVO;
+import com.stan.server.service.RoleService;
 import com.stan.server.service.UserService;
 import com.stan.server.utils.ResultVO;
 import com.stan.server.utils.SecurityAuthUtil;
@@ -15,11 +17,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public User getUserInfoByName(String userName) {

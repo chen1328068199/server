@@ -55,8 +55,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    public List<Role> getRolesFromUser(Integer userId) {
-        return roleMapper.getRolesFromUser(userId);
+    public List<Role> listRolesFromUser(Integer userId) {
+        return roleMapper.listRolesFromUser(userId);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional
-    public ResultVO<Object> updateRole(Role role, String menus, String permissionIds) {
+    public ResultVO<Object> updateRole(Role role, String menuIds, String permissionIds) {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", role.getId());
         Role role1 = getOne(queryWrapper);
@@ -97,9 +97,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         }
         if (role.getName() != null || role.getDescribe() != null || role.getRole() != null)
             updateById(role);
-        if (menus != null && !menus.trim().equals("")) {
+        if (menuIds != null && !menuIds.trim().equals("")) {
             roleMapper.deleteMenusFromRoleId(role.getId());
-            roleMapper.roleAddMenu(role.getId(), StringUtils.DotStringToIntArray(menus));
+            roleMapper.roleAddMenu(role.getId(), StringUtils.DotStringToIntArray(menuIds));
         }
         if (permissionIds != null && !permissionIds.trim().equals("")) {
             roleMapper.deletePermissionsFromRoleId(role.getId());
@@ -122,7 +122,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     public List<Menu> listMenusFromRoles(Collection<String> roles) {
         List<Integer> roleIds = roleMapper.listRoleIdByRole(roles);
-        return roleMapper.listMenusByRoleIds(roleIds);
+        List<Menu> menus = roleMapper.listMenusByRoleIds(roleIds);
+        Set<Integer> set = new HashSet<>();
+        Iterator<Menu> iterator = menus.iterator();
+        while (iterator.hasNext()) {
+            Integer menuId = iterator.next().getId();
+            if (set.contains(menuId))
+                iterator.remove();
+            else
+                set.add(menuId);
+        }
+        return menus;
     }
 
     @Override

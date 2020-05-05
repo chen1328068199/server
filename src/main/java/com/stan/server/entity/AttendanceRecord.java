@@ -70,4 +70,8 @@ public class AttendanceRecord implements Serializable {
     @ApiModelProperty(value = "考勤状态")
     @TableField("type")
     private Integer type;
+
+    @ApiModelProperty(value = "关联请假ID")
+    @TableField("leave_id")
+    private Integer leaveId;
 }

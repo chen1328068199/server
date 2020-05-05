@@ -3,17 +3,20 @@ package com.stan.server.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.stan.server.entity.Menu;
 import com.stan.server.entity.Permission;
+import com.stan.server.entity.Role;
 import com.stan.server.mapper.PermissionMapper;
 import com.stan.server.model.vo.MenuVO;
 import com.stan.server.model.vo.PermissionVO;
 import com.stan.server.service.MenuService;
 import com.stan.server.service.PermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.stan.server.service.RoleService;
 import com.stan.server.utils.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -28,6 +31,10 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private PermissionMapper permissionMapper;
 
     @Override
     public ResultVO<Object> updatePermission(Permission permission) {
@@ -84,5 +91,24 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
             menuVO.getPermissions().add(permissionVO);
         }
         return new ArrayList<>(map.values());
+    }
+
+    @Override
+    public String listPermissionsFromUser(Integer userId) {
+        List<Role> roles = roleService.listRolesFromUser(userId);
+        List<Integer> roleIds = roles.stream().map(Role::getId).collect(Collectors.toList());
+        List<Permission> permissions = permissionMapper.listPermissionsFromRoles(roleIds);
+        StringBuilder stringBuilder = new StringBuilder("");
+        Set<Integer> set = new HashSet<>();
+        for (Permission permission : permissions) {
+            Integer id = permission.getId();
+            if (set.contains(id))
+                continue;
+            set.add(id);
+            stringBuilder.append(permission.getPermission());
+            stringBuilder.append(",");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        return stringBuilder.toString();
     }
 }

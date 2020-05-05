@@ -46,6 +46,6 @@ public class AttendanceRulesTimeServiceImpl extends ServiceImpl<AttendanceRulesT
         if (attendanceRulesTime != null)
             return attendanceRulesTime.getStatus() == 1;
         DayOfWeek dayOfWeek = date.getDayOfWeek();
-        return dayOfWeek.equals(DayOfWeek.SATURDAY) || dayOfWeek.equals(DayOfWeek.SUNDAY);
+        return !dayOfWeek.equals(DayOfWeek.SATURDAY) && !dayOfWeek.equals(DayOfWeek.SUNDAY);
     }
 }

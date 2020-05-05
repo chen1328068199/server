@@ -15,5 +15,20 @@
     <sql id="Base_Column_List">
         id, permission, description, menu_id, title
     </sql>
+    <select id="listPermissionsFromRoles" resultMap="BaseResultMap">
+        SELECT
+            p.id,
+            p.permission,
+            p.description,
+            p.menu_id,
+            p.title
+        FROM sys_role_permission AS rp INNER JOIN sys_permission AS p ON rp.permission_id=p.id
+        <where>
+            rp.role_id IN
+            <foreach collection="roleIds" item="roleId" separator="," open="(" close=")">
+                #{roleId}
+            </foreach>
+        </where>
+    </select>
 
 </mapper>

@@ -97,6 +97,7 @@ public class AttendanceRecordServiceImpl extends ServiceImpl<AttendanceRecordMap
             vo.setAttendanceMode(AttendanceModeEnum.getMessageByCode(record.getAttendanceMode()));
             vo.setAddress(record.getAddress());
             vo.setType(RecordTypeEnum.getMessageByCode(record.getType()));
+            vo.setLeaveId(record.getLeaveId());
             vos.add(vo);
         }
         voPage.setRecords(vos);

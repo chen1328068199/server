@@ -28,7 +28,7 @@ public class MpGenerator {
         // 作者
         String author = "Ren";
         // 需要生成的表
-        String[] tables = new String[]{"attendance_stats"};
+        String[] tables = new String[]{"attendance_approval"};
         // 包名前缀
         String parent = "com.stan.server";
         // 所在包

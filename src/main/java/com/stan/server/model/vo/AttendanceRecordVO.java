@@ -36,4 +36,7 @@ public class AttendanceRecordVO {
 
     @ApiModelProperty(value = "部门")
     private String department;
+
+    @ApiModelProperty(value = "关联请假ID")
+    private Integer leaveId;
 }

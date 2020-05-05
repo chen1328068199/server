@@ -45,17 +45,44 @@ public class AttendanceStatsServiceImpl extends ServiceImpl<AttendanceStatsMappe
 
         List<AttendanceStatLineChartVO> vos = new LinkedList<>();
         for (LocalDate date = requestParam.getStartDate(); date.compareTo(endDate) <= 0; date = date.plusDays(1)) {
-            QueryWrapper<AttendanceStats> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("attendance_date", date);
-            if (requestParam.getDepartmentId() != null) {
-                List<Integer> userIds = userMapper.listUserIdByDepartment(requestParam.getDepartmentId());
-                queryWrapper.in(userIds != null && userIds.size() > 0, "user_id", userIds);
-            }
-            queryWrapper.eq(requestParam.getAttendanceWay() != null, "attendance_way", requestParam.getAttendanceWay());
-            queryWrapper.eq(requestParam.getAttendanceStatus() != null, "status", requestParam.getAttendanceStatus());
-            int count = count(queryWrapper);
             AttendanceStatLineChartVO vo = new AttendanceStatLineChartVO();
-            vo.setNumber(count);
+            for (AttendanceStatusEnum value : AttendanceStatusEnum.values()) {
+                QueryWrapper<AttendanceStats> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("attendance_date", date);
+                if (requestParam.getDepartmentId() != null) {
+                    List<Integer> userIds = userMapper.listUserIdByDepartment(requestParam.getDepartmentId());
+                    queryWrapper.in(userIds != null && userIds.size() > 0, "user_id", userIds);
+                }
+                queryWrapper.eq(requestParam.getAttendanceWay() != null, "attendance_way", requestParam.getAttendanceWay());
+                queryWrapper.eq("status", value.getCode());
+                int count = count(queryWrapper);
+                switch (value) {
+                    case LATE:
+                        vo.setLateNum(count);
+                        break;
+                    case EARLY:
+                        vo.setEarlyNum(count);
+                        break;
+                    case LEAVE:
+                        vo.setLeaveNum(count);
+                        break;
+                    case NORMAL:
+                        vo.setNormalNum(count);
+                        break;
+                    case ABSENCE:
+                        vo.setAbsenceNum(count);
+                        break;
+                    case NOT_END:
+                        vo.setNotEndNum(count);
+                        break;
+                    case OVERTIME:
+                        vo.setOvertimeNum(count);
+                        break;
+                    case NOT_BEGIN:
+                        vo.setNotBeginNum(count);
+                        break;
+                }
+            }
             vo.setDate(date);
             vos.add(vo);
         }

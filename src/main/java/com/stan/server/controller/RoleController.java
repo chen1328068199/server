@@ -29,6 +29,18 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    @PostMapping("edit")
+    @ApiOperation("修改角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuIds", value = "可查看菜单Id", dataType = "String"),
+            @ApiImplicitParam(name = "permissionIds", value = "关联权限ID，多个权限以逗号分隔", dataType = "String"),
+    })
+    public ResultVO<Object> edit(Role role,
+                                 @RequestParam(value = "menuIds", required = false) String menuIds,
+                                 @RequestParam(value = "permissionIds", required = false) String permissionIds) {
+        return roleService.updateRole(role, menuIds, permissionIds);
+    }
+
     @GetMapping("page")
     @ApiOperation("分页查询角色")
     @ApiImplicitParams({
@@ -59,19 +71,6 @@ public class RoleController {
         return roleService.addRole(role, menus, permissionIds);
     }
 
-    @PostMapping("edit")
-    @ApiOperation("修改角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "角色ID"),
-            @ApiImplicitParam(name = "permissionIds", value = "关联权限ID，多个权限以逗号分隔", dataType = "String"),
-            @ApiImplicitParam(name = "status", value = "角色状态", dataType = "0-不启用"),
-    })
-    public ResultVO<Object> edit(Role role,
-                                 @RequestParam(value = "menus", required = false) String menus,
-                                 @RequestParam(value = "permissions", required = false) String permissionIds) {
-        return roleService.updateRole(role, menus, permissionIds);
-    }
-
     @GetMapping("delete")
     @ApiOperation("删除角色")
     @ApiImplicitParams({
@@ -82,8 +81,6 @@ public class RoleController {
         return ResultVO.success();
     }
 
-
-
     @GetMapping("listPermissionsByRole")
     @ApiOperation("获得角色拥有的权限")
     @ApiImplicitParams({
@@ -93,7 +90,6 @@ public class RoleController {
         List<String> ids = roleService.listPermissionsByRole(id);
         return ResultVO.success(ids);
     }
-
 
 }
 

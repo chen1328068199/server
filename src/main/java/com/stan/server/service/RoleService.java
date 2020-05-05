@@ -24,11 +24,11 @@ public interface RoleService extends IService<Role> {
 
     List<Role> listSysRolesFromUser(Integer userId);
 
-    List<Role> getRolesFromUser(Integer userId);
+    List<Role> listRolesFromUser(Integer userId);
 
     ResultVO<Object> addRole(Role role, String menus, String permissionIds);
 
-    ResultVO<Object> updateRole(Role role, String menus, String permissionIds);
+    ResultVO<Object> updateRole(Role role, String menuIds, String permissionIds);
 
     ResultVO<Object> deleteRole(String role);
 

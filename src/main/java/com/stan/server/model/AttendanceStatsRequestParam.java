@@ -26,8 +26,8 @@ public class AttendanceStatsRequestParam {
     @ApiModelProperty(value = "打卡方式")
     private Integer attendanceWay;
 
-    @ApiModelProperty(value = "考勤状态")
-    private Integer attendanceStatus;
+//    @ApiModelProperty(value = "考勤状态")
+//    private Integer attendanceStatus;
 
 
 }

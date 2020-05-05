@@ -10,11 +10,11 @@ public enum AttendanceStatusEnum {
     LATE(3, "迟到"),
     EARLY(4, "早退"),
     LEAVE(5, "请假"),
-    BEGIN_WORKING(6, "上班打卡"),
-    END_WORKING(7, "下班打卡"),
+//    BEGIN_WORKING(6, "上班打卡"),
+//    END_WORKING(7, "下班打卡"),
     NOT_BEGIN(8, "上班未打卡"),
     NOT_END(9, "下班未打卡"),
-    SEVERANCE(10, "离职"),
+//    SEVERANCE(10, "离职"),
     ;
 
     private Integer code;

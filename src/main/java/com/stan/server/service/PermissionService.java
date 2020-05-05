@@ -21,4 +21,6 @@ public interface PermissionService extends IService<Permission> {
     ResultVO<Object> updatePermission(Permission permission);
     List<MenuVO> listPermission();
     List<MenuVO> listPermission(Collection<Integer> menuIds, Collection<Integer> permissionIds);
+
+    String listPermissionsFromUser(Integer userId);
 }
