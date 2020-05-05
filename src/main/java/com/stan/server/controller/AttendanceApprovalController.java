@@ -1,13 +1,14 @@
 package com.stan.server.controller;
 
+import com.stan.server.model.FillApprovalRequestParam;
+import com.stan.server.model.LeaveApprovalRequestParam;
+import com.stan.server.service.AttendanceApprovalService;
 import com.stan.server.utils.ResultVO;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,13 +23,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/attendanceApproval")
 public class AttendanceApprovalController {
 
-//    @PostMapping("approvalRequest")
-//    @ApiOperation("设置考勤口令")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "code", value = "口令", required = true, dataType = "String"),
-//    })
-//    public ResultVO<Object> setCode(@RequestParam("code") String code) {
-//
-//    }
+    @Autowired
+    private AttendanceApprovalService attendanceApprovalService;
+
+    @GetMapping("requestLeave")
+    @ApiOperation("发起请假审批")
+    public ResultVO<Object> requestLeave(LeaveApprovalRequestParam requestParam) {
+        attendanceApprovalService.requestLeave(requestParam);
+        return ResultVO.success();
+    }
+
+    @GetMapping("requestFill")
+    @ApiOperation("发起补卡审批")
+    public ResultVO<Object> requestFill(FillApprovalRequestParam requestParam) {
+        attendanceApprovalService.requestFill(requestParam);
+        return ResultVO.success();
+    }
 }
 

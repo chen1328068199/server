@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum AttendanceLeaveTypeEnum {
-    PERSONAL_LEAVE(1, "病假"),
+    PERSONAL_LEAVE(0, "事假"),
     SICK_LEAVE(1, "病假"),
-    HOLIDAY(1, "节假"),
-    VACATION(1, "休假"),
+    VACATION(2, "休假"),
+    HOLIDAY(3, "节假"),
     ;
 
     private Integer code;

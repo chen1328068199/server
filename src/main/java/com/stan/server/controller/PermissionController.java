@@ -5,6 +5,7 @@ import com.stan.server.entity.Permission;
 import com.stan.server.model.vo.MenuVO;
 import com.stan.server.service.PermissionService;
 import com.stan.server.utils.ResultVO;
+import com.stan.server.utils.SecurityAuthUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -75,6 +76,12 @@ public class PermissionController {
     })
     public ResultVO<String> listPermissionsFromUser(@RequestParam("userId") Integer userId) {
         return ResultVO.success(permissionService.listPermissionsFromUser(userId));
+    }
+
+    @GetMapping("listPermissionsFromCurrentUser")
+    @ApiOperation("获得当前员工拥有权限")
+    public ResultVO<String> listPermissionsFromUser() {
+        return ResultVO.success(permissionService.listPermissionsFromUser(SecurityAuthUtil.getCurrentUserId()));
     }
 }
 

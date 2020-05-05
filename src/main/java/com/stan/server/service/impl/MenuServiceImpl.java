@@ -15,7 +15,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -34,7 +33,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public ResultVO<String> getMenuFromRole() {
-        HashSet<GrantedAuthority> authorities = (HashSet<GrantedAuthority>) SecurityAuthUtil.getAuthenticationUser().getAuthorities();
+        HashSet<GrantedAuthority> authorities = (HashSet<GrantedAuthority>) SecurityAuthUtil.getCurrentUser().getAuthorities();
         Set<String> roleSet = new HashSet<>();
         for (GrantedAuthority authority : authorities) {
             roleSet.add(authority.getAuthority());

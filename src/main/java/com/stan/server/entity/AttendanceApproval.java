@@ -37,12 +37,23 @@ public class AttendanceApproval implements Serializable {
     @TableField("initiator")
     private Integer initiator;
 
-    @ApiModelProperty(value = "审批接收人")
+    @ApiModelProperty(value = "审批接收人,多个审批接收人按审批顺序用逗号分隔")
     @TableField("receiver")
-    private Integer receiver;
+    private String receiver;
 
     @ApiModelProperty(value = "审批状态")
     @TableField("status")
     private Integer status;
 
+    @ApiModelProperty(value = "审批类型")
+    @TableField("approval_type")
+    private Integer approvalType;
+
+    @ApiModelProperty(value = "关联记录ID, 请假记录关联的是请假ID")
+    @TableField("record_id")
+    private Integer recordId;
+
+    @ApiModelProperty(value = "审批描述")
+    @TableField("description")
+    private String description;
 }

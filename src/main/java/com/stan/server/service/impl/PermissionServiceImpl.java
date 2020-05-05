@@ -108,7 +108,8 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
             stringBuilder.append(permission.getPermission());
             stringBuilder.append(",");
         }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        if (stringBuilder.length() > 1)
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         return stringBuilder.toString();
     }
 }

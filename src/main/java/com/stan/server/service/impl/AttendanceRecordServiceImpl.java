@@ -59,8 +59,8 @@ public class AttendanceRecordServiceImpl extends ServiceImpl<AttendanceRecordMap
         Map<Integer, User> map = users.stream().collect(Collectors.toMap(User::getId, Function.identity()));
         // 查询考勤记录信息
         QueryWrapper<AttendanceRecord> recordQueryWrapper = new QueryWrapper<>();
-        recordQueryWrapper.ge(requestParam.getStartDate() != null, "attendance_time", requestParam.getStartDate());
-        recordQueryWrapper.le(requestParam.getEndDate() != null, "attendance_time", requestParam.getEndDate());
+        recordQueryWrapper.ge(requestParam.getStartDate() != null, "attendance_time", requestParam.getStartDate().toString());
+        recordQueryWrapper.le(requestParam.getEndDate() != null, "attendance_time", requestParam.getEndDate().plusDays(1).toString());
         recordQueryWrapper.eq(requestParam.getAttendanceMode() != null, "attendance_mode", requestParam.getAttendanceMode());
         recordQueryWrapper.eq(requestParam.getType() != null, "type", requestParam.getType());
         recordQueryWrapper.like(requestParam.getUserName() != null && !requestParam.getUserName().trim().equals(""),

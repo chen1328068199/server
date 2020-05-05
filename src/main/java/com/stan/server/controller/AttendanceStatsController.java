@@ -43,7 +43,7 @@ public class AttendanceStatsController {
         if (requestParam.getStartDate() == null)
             requestParam.setStartDate(requestParam.getEndDate().minusDays(7));
         return ResultVO.success(attendanceStatsService.getStats(requestParam));
-    }
+}
 
     @GetMapping("getHistoryStatsFromUser")
     @ApiOperation("获得指定员工的历史考勤记录")
@@ -66,9 +66,8 @@ public class AttendanceStatsController {
     public ResultVO<List<AttendanceRecordStatVO>> getHistoryStatsFromCurrentUser(@RequestParam("date")
                                                                                  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                                                                          LocalDate date) {
-        return ResultVO.success(attendanceStatsService.attendanceStatsService(SecurityAuthUtil.getLoginId(), date));
+        return ResultVO.success(attendanceStatsService.attendanceStatsService(SecurityAuthUtil.getCurrentUserId(), date));
     }
-
 
 }
 

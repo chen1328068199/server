@@ -8,11 +8,14 @@
         <result column="initiator" property="initiator" />
         <result column="receiver" property="receiver" />
         <result column="status" property="status" />
+        <result column="approval_type" property="approvalType" />
+        <result column="record_id" property="recordId" />
+        <result column="description" property="description" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, initiator, receiver, status
+        id, initiator, receiver, status, approval_type, record_id, description
     </sql>
 
 </mapper>

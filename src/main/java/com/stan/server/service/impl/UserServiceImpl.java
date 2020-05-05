@@ -2,8 +2,6 @@ package com.stan.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.stan.server.entity.Role;
-import com.stan.server.model.MyUserDetails;
 import com.stan.server.model.User;
 import com.stan.server.mapper.UserMapper;
 import com.stan.server.model.vo.UserVO;
@@ -16,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -63,7 +58,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResultVO<Object> updateCurrentUserPassword(String oldPassword, String newPassword) {
-        int id = SecurityAuthUtil.getLoginId();
+        int id = SecurityAuthUtil.getCurrentUserId();
         User user = getById(id);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(oldPassword, user.getUserPassword())) {

@@ -53,7 +53,7 @@ public class AttendanceRecordController {
     @GetMapping("getAttendanceRecordFromCurrentUser")
     @ApiOperation("获得当前用户当天的考勤记录")
     public ResultVO<AttendanceVO> getAttendanceRecordFromCurrentUser() {
-        return ResultVO.success(attendanceRecordService.getAttendanceRecordFromUser(SecurityAuthUtil.getLoginId()));
+        return ResultVO.success(attendanceRecordService.getAttendanceRecordFromUser(SecurityAuthUtil.getCurrentUserId()));
     }
 
     @GetMapping("getAttendanceRecordFromUser")
